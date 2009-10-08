@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<treeview version="0.1.0">
+<node>
+<class>vavi.apps.treeView.node.RootFolderTreeNode</class>
+<url>file:/c:/home/nsano/src/java/vavi/apps/treeView/ルート.xml</url>
+<node>
+<class>vavi.apps.treeView.node.TestFolderTreeNode</class>
+<url>file:/c:/home/nsano/src/java/vavi/apps/treeView/Test Foler A.xml</url>
+</node>
+<node>
+<class>vavi.apps.treeView.node.TestFolderTreeNode</class>
+<url>file:/c:/home/nsano/src/java/vavi/apps/treeView/Test Foler B.xml</url>
+<node>
+<class>vavi.apps.treeView.node.TestFileTreeNode</class>
+<url>file:/c:/home/nsano/src/java/vavi/apps/treeView/Test File D.xml</url>
+</node>
+<node>
+<class>vavi.apps.treeView.node.TestFileTreeNode</class>
+<url>file:/c:/home/nsano/src/java/vavi/apps/treeView/Test File E.xml</url>
+</node>
+</node>
+<node>
+<class>vavi.apps.treeView.node.TestFileTreeNode</class>
+<url>file:/c:/home/nsano/src/java/vavi/apps/treeView/Test File C.xml</url>
+</node>
+</node>
+</treeview>
