@@ -30,11 +30,11 @@ import vavi.swing.event.EditorSupport;
  */
 public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements Selectable {
 
-    /** ƒŠƒ\[ƒXƒoƒ“ƒhƒ‹ */
+    /** ãƒªã‚½ãƒ¼ã‚¹ãƒãƒ³ãƒ‰ãƒ« */
     protected static final ResourceBundle rb = ResourceBundle.getBundle("vavi.apps.treeView.TreeViewResource", Locale.getDefault());
 
     /**
-     * ƒJƒbƒg‚³‚ê‚½‚©‚Ç‚¤‚©
+     * ã‚«ãƒƒãƒˆã•ã‚ŒãŸã‹ã©ã†ã‹
      */
     protected boolean isCut = false;
 
@@ -44,9 +44,9 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
     }
 
     /**
-     * TreeView ‚Åg—p‚·‚éŠî–{‚ÌƒcƒŠ[ƒm[ƒh‚ğì¬‚µ‚Ü‚·D
+     * TreeView ã§ä½¿ç”¨ã™ã‚‹åŸºæœ¬ã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’ä½œæˆã—ã¾ã™ï¼
      * 
-     * @param userObject ƒm[ƒh‚Ìƒf[ƒ^
+     * @param userObject ãƒãƒ¼ãƒ‰ã®ãƒ‡ãƒ¼ã‚¿
      */
     public TreeViewTreeNode(Object userObject) {
         super(userObject);
@@ -65,64 +65,64 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
     // -------------------------------------------------------------------------
 
     /**
-     * ƒI[ƒvƒ“‚µ‚Ü‚·D
+     * ã‚ªãƒ¼ãƒ—ãƒ³ã—ã¾ã™ï¼
      * 
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     public void open() throws TreeViewException {
         throw new TreeViewException(rb.getString("action.open.error"));
     }
 
     /**
-     * –¼‘O‚ğ•ÏX‚µ‚Ü‚·D
+     * åå‰ã‚’å¤‰æ›´ã—ã¾ã™ï¼
      * 
-     * @param name •ÏXŒã‚Ì•\¦–¼
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @param name å¤‰æ›´å¾Œã®è¡¨ç¤ºå
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     public void rename(String name) throws TreeViewException {
         throw new TreeViewException(rb.getString("action.rename.error"));
     }
 
     /**
-     * ƒJƒbƒg‚µ‚Ü‚·D
+     * ã‚«ãƒƒãƒˆã—ã¾ã™ï¼
      * 
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     public void cut() throws TreeViewException {
         throw new TreeViewException(rb.getString("action.cut.error"));
     }
 
     /**
-     * ƒRƒs[‚µ‚Ü‚·D
+     * ã‚³ãƒ”ãƒ¼ã—ã¾ã™ï¼
      * 
-     * @throws TreeViewException ƒRƒs[‚Å‚«‚È‚©‚Á‚½
+     * @throws TreeViewException ã‚³ãƒ”ãƒ¼ã§ããªã‹ã£ãŸ
      */
     public void copy() throws TreeViewException {
         throw new TreeViewException(rb.getString("action.copy.error"));
     }
 
     /**
-     * ƒy[ƒXƒg‚µ‚Ü‚·D
+     * ãƒšãƒ¼ã‚¹ãƒˆã—ã¾ã™ï¼
      * 
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     public void paste(TreeViewTreeNode from) throws TreeViewException {
         throw new TreeViewException(rb.getString("action.paste.error"));
     }
 
     /**
-     * ˆÚ“®‚µ‚Ü‚·D
+     * ç§»å‹•ã—ã¾ã™ï¼
      * 
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     protected void move(TreeViewTreeNode to) throws TreeViewException {
         throw new TreeViewException(rb.getString("action.paste.error"));
     }
 
     /**
-     * íœ‚µ‚Ü‚·D
+     * å‰Šé™¤ã—ã¾ã™ï¼
      * 
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     public void delete() throws TreeViewException {
         throw new TreeViewException(rb.getString("action.delete.error"));
@@ -130,12 +130,12 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
 
     // -------------------------------------------------------------------------
 
-    /** ƒI[ƒvƒ“‚µ‚½‚Æ‚«ƒrƒ…[‚ğ•ÏX‚µ‚Ü‚·D */
+    /** ã‚ªãƒ¼ãƒ—ãƒ³ã—ãŸã¨ããƒ“ãƒ¥ãƒ¼ã‚’å¤‰æ›´ã—ã¾ã™ï¼ */
     protected void openController() {
         fireEditorUpdated(new EditorEvent(this, "expand", new TreePath(getPath())));
     }
 
-    /** íœ‚µ‚½‚Æ‚«ƒrƒ…[‚ğ•ÏX‚µ‚Ü‚·D */
+    /** å‰Šé™¤ã—ãŸã¨ããƒ“ãƒ¥ãƒ¼ã‚’å¤‰æ›´ã—ã¾ã™ï¼ */
     protected void deleteController() {
         DefaultMutableTreeNode parent = (DefaultMutableTreeNode) getParent();
 
@@ -156,19 +156,19 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
     }
 
     /**
-     * ƒy[ƒXƒg‚µ‚½‚Æ‚«ƒrƒ…[‚ğ•ÏX‚µ‚Ü‚·D ƒJƒbƒg‚©ƒRƒs[‚É‚ ‚í‚¹‚Ä from ‚ğ‚»‚Ì‚à‚Ì‚© ƒRƒs[‚µ‚½‚à‚Ì‚©‚ğƒ†[ƒU‚ªİ’è‚·‚é•K—v‚ª‚ ‚è‚Ü‚·D
+     * ãƒšãƒ¼ã‚¹ãƒˆã—ãŸã¨ããƒ“ãƒ¥ãƒ¼ã‚’å¤‰æ›´ã—ã¾ã™ï¼ ã‚«ãƒƒãƒˆã‹ã‚³ãƒ”ãƒ¼ã«ã‚ã‚ã›ã¦ from ã‚’ãã®ã‚‚ã®ã‹ ã‚³ãƒ”ãƒ¼ã—ãŸã‚‚ã®ã‹ã‚’ãƒ¦ãƒ¼ã‚¶ãŒè¨­å®šã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ï¼
      */
     protected void pasteController(TreeViewTreeNode from) {
         addController(from);
     }
 
-    /** ˆÚ“®‚µ‚½‚Æ‚«ƒrƒ…[‚ğ•ÏX‚µ‚Ü‚·D */
+    /** ç§»å‹•ã—ãŸã¨ããƒ“ãƒ¥ãƒ¼ã‚’å¤‰æ›´ã—ã¾ã™ï¼ */
     protected void moveController(TreeViewTreeNode to) {
         deleteController();
         to.addController(this);
     }
 
-    /** ’Ç‰Á‚µ‚½‚Æ‚«ƒrƒ…[‚ğ•ÏX‚µ‚Ü‚·D */
+    /** è¿½åŠ ã—ãŸã¨ããƒ“ãƒ¥ãƒ¼ã‚’å¤‰æ›´ã—ã¾ã™ï¼ */
     protected void addController(DefaultMutableTreeNode toAdd) {
         this.add(toAdd);
 
@@ -179,32 +179,32 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
 
     // -------------------------------------------------------------------------
 
-    /** ƒI[ƒvƒ“‚Å‚«‚é‚©‚Ç‚¤‚© */
+    /** ã‚ªãƒ¼ãƒ—ãƒ³ã§ãã‚‹ã‹ã©ã†ã‹ */
     public boolean canOpen() {
         return false;
     }
 
-    /** ƒŠƒl[ƒ€‚Å‚«‚é‚©‚Ç‚¤‚© */
+    /** ãƒªãƒãƒ¼ãƒ ã§ãã‚‹ã‹ã©ã†ã‹ */
     public boolean canRename() {
         return false;
     }
 
-    /** ƒJƒbƒg‚Å‚«‚é‚©‚Ç‚¤‚© */
+    /** ã‚«ãƒƒãƒˆã§ãã‚‹ã‹ã©ã†ã‹ */
     public boolean canCut() {
         return false;
     }
 
-    /** ƒRƒs[‚Å‚«‚é‚©‚Ç‚¤‚© */
+    /** ã‚³ãƒ”ãƒ¼ã§ãã‚‹ã‹ã©ã†ã‹ */
     public boolean canCopy() {
         return false;
     }
 
-    /** ƒy[ƒXƒg‚Å‚«‚é‚©‚Ç‚¤‚© */
+    /** ãƒšãƒ¼ã‚¹ãƒˆã§ãã‚‹ã‹ã©ã†ã‹ */
     public boolean canPaste(TreeViewTreeNode from) {
         return false;
     }
 
-    /** íœ‚Å‚«‚é‚©‚Ç‚¤‚© */
+    /** å‰Šé™¤ã§ãã‚‹ã‹ã©ã†ã‹ */
     public boolean canDelete() {
         return false;
     }
@@ -212,22 +212,22 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
     // -------------------------------------------------------------------------
 
     /**
-     * {@link DefaultMutableTreeNode#getUserObject()} ‚Í transient ‚Å‚·B
-     * ‚±‚ÌƒcƒŠ[ƒm[ƒh‚ğ’¼—ñ‰»‚·‚é‚½‚ß‚ÉƒI[ƒoƒ‰ƒCƒh‚µ‚Ü‚·B
+     * {@link DefaultMutableTreeNode#getUserObject()} ã¯ transient ã§ã™ã€‚
+     * ã“ã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’ç›´åˆ—åŒ–ã™ã‚‹ãŸã‚ã«ã‚ªãƒ¼ãƒãƒ©ã‚¤ãƒ‰ã—ã¾ã™ã€‚
      */
     protected Object userObject;
 
     /**
-     * {@link DefaultMutableTreeNode#getUserObject()} ‚Í transient ‚Å‚·B
-     * ‚±‚ÌƒcƒŠ[ƒm[ƒh‚ğ’¼—ñ‰»‚·‚é‚½‚ß‚ÉƒI[ƒoƒ‰ƒCƒh‚µ‚Ü‚·B
+     * {@link DefaultMutableTreeNode#getUserObject()} ã¯ transient ã§ã™ã€‚
+     * ã“ã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’ç›´åˆ—åŒ–ã™ã‚‹ãŸã‚ã«ã‚ªãƒ¼ãƒãƒ©ã‚¤ãƒ‰ã—ã¾ã™ã€‚
      */
     public void setUserObject(Object userObject) {
         this.userObject = userObject;
     }
 
     /**
-     * {@link DefaultMutableTreeNode#getUserObject()} ‚Í transient ‚Å‚·B
-     * ‚±‚ÌƒcƒŠ[ƒm[ƒh‚ğ’¼—ñ‰»‚·‚é‚½‚ß‚ÉƒI[ƒoƒ‰ƒCƒh‚µ‚Ü‚·B
+     * {@link DefaultMutableTreeNode#getUserObject()} ã¯ transient ã§ã™ã€‚
+     * ã“ã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’ç›´åˆ—åŒ–ã™ã‚‹ãŸã‚ã«ã‚ªãƒ¼ãƒãƒ©ã‚¤ãƒ‰ã—ã¾ã™ã€‚
      */
     public Object getUserObject() {
         return userObject;
@@ -235,20 +235,20 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
 
     //----
 
-    /** EditorEvent ‹@\‚Ìƒ†[ƒeƒBƒŠƒeƒB */
+    /** EditorEvent æ©Ÿæ§‹ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ */
     private static EditorSupport editorSupport = new EditorSupport();
 
-    /** Editor ƒŠƒXƒi[‚ğ’Ç‰Á‚µ‚Ü‚·D */
+    /** Editor ãƒªã‚¹ãƒŠãƒ¼ã‚’è¿½åŠ ã—ã¾ã™ï¼ */
     public synchronized void addEditorListener(EditorListener l) {
         editorSupport.addEditorListener(l);
     }
 
-    /** Editor ƒŠƒXƒi[‚ğíœ‚µ‚Ü‚·D */
+    /** Editor ãƒªã‚¹ãƒŠãƒ¼ã‚’å‰Šé™¤ã—ã¾ã™ï¼ */
     public synchronized void removeEditorListener(EditorListener l) {
         editorSupport.removeEditorListener(l);
     }
 
-    /** EditorEvent ‚ğ”­s‚µ‚Ü‚·D */
+    /** EditorEvent ã‚’ç™ºè¡Œã—ã¾ã™ï¼ */
     protected void fireEditorUpdated(EditorEvent ev) {
         editorSupport.fireEditorUpdated(ev);
     }

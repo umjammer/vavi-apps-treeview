@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
 
 
 /**
- * ƒcƒŠ[‚Ì‰Šúƒf[ƒ^‚Ì XML ƒZ[ƒo‚Å‚·D XML ƒf[ƒ^‚Ìƒo[ƒWƒ‡ƒ“‚Í 0.1.0 ‚Å‚·D
+ * ãƒ„ãƒªãƒ¼ã®åˆæœŸãƒ‡ãƒ¼ã‚¿ã® XML ã‚»ãƒ¼ãƒã§ã™ï¼ XML ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯ 0.1.0 ã§ã™ï¼
  * 
  * <pre><tt>
  * 
@@ -56,24 +56,24 @@ import org.w3c.dom.Element;
  */
 public class DomXMLSaver implements XMLSaver {
 
-    /** XML ‚Ìƒ‹[ƒgƒm[ƒh‚Ìƒ^ƒCƒgƒ‹ */
+    /** XML ã®ãƒ«ãƒ¼ãƒˆãƒãƒ¼ãƒ‰ã®ã‚¿ã‚¤ãƒˆãƒ« */
     public static final String title = "treeview";
 
-    /** XML ‚ğo—Í‚·‚éƒ‰ƒCƒ^ */
+    /** XML ã‚’å‡ºåŠ›ã™ã‚‹ãƒ©ã‚¤ã‚¿ */
     private Writer writer;
 
-    /** XML ƒhƒLƒ…ƒƒ“ƒg */
+    /** XML ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆ */
     private Document document;
 
-    /** XML ‚Ì‰üs‚Í \n */
+    /** XML ã®æ”¹è¡Œã¯ \n */
     private static final String LS = "\n";
 
-    /** ƒcƒŠ[‚Ì‰Šúƒf[ƒ^‚Ì XML ƒZ[ƒo‚ğ\’z‚µ‚Ü‚·D */
+    /** ãƒ„ãƒªãƒ¼ã®åˆæœŸãƒ‡ãƒ¼ã‚¿ã® XML ã‚»ãƒ¼ãƒã‚’æ§‹ç¯‰ã—ã¾ã™ï¼ */
     public DomXMLSaver(OutputStream os) throws IOException {
         writer = new OutputStreamWriter(os, "UTF-8");
     }
 
-    /** ƒ‹[ƒgˆÈ‰º‚ÌƒcƒŠ[ƒm[ƒh‚ğ‘‚«‚İ‚Ü‚·D */
+    /** ãƒ«ãƒ¼ãƒˆä»¥ä¸‹ã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’æ›¸ãè¾¼ã¿ã¾ã™ï¼ */
     public void writeRootTreeNode(TreeViewTreeNode root) throws IOException {
 
         DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
@@ -84,7 +84,7 @@ public class DomXMLSaver implements XMLSaver {
             throw (RuntimeException) new IllegalStateException().initCause(e);
         }
 
-        document = builder.newDocument(); // V‹KƒhƒLƒ…ƒƒ“ƒg‚Ìì¬
+        document = builder.newDocument(); // æ–°è¦ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã®ä½œæˆ
 
         Element rootElement = document.createElement(title);
         rootElement.setAttribute("version", "0.1.0");
@@ -92,7 +92,7 @@ public class DomXMLSaver implements XMLSaver {
 
         setChildElement(root, rootElement);
 
-        document.appendChild(rootElement); // ƒhƒLƒ…ƒƒ“ƒg‚É’Ç‰Á
+        document.appendChild(rootElement); // ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«è¿½åŠ 
 
         TransformerFactory tFactory = TransformerFactory.newInstance();
         Transformer transformer;
@@ -112,7 +112,7 @@ public class DomXMLSaver implements XMLSaver {
         }
     }
 
-    /** ƒcƒŠ[ƒm[ƒh‚©‚ç XML ƒm[ƒh‚ğì¬‚µ‚Ü‚·D */
+    /** ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‹ã‚‰ XML ãƒãƒ¼ãƒ‰ã‚’ä½œæˆã—ã¾ã™ï¼ */
     private Element createElement(TreeViewTreeNode node) throws IOException {
 
         File file = new File(node.toString() + ".xml");
@@ -135,7 +135,7 @@ public class DomXMLSaver implements XMLSaver {
         return element;
     }
 
-    /** q‹Ÿ‚Ìƒm[ƒh‚ğæ“¾‚µ‚Ü‚·D */
+    /** å­ä¾›ã®ãƒãƒ¼ãƒ‰ã‚’å–å¾—ã—ã¾ã™ï¼ */
     private void setChildElement(TreeViewTreeNode node, Element parent) throws IOException {
 
         Element element = createElement(node);

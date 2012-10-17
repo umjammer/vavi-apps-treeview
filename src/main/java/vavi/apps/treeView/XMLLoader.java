@@ -13,7 +13,7 @@ package vavi.apps.treeView;
  * @version 0.00 041105 nsano initial version <br>
  */
 public interface XMLLoader {
-    /** ƒ‹[ƒg‚ÌƒcƒŠ[ƒm[ƒh‚ğæ“¾‚µ‚Ü‚·D */
+    /** ãƒ«ãƒ¼ãƒˆã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’å–å¾—ã—ã¾ã™ï¼ */
     TreeViewTreeNode readRootTreeNode();
 }
 /* */

@@ -69,26 +69,26 @@ public class TreeViewTreeDTListener extends BasicDTListener {
         return chosen;
     }
 
-    /** ƒhƒ‰ƒbƒOƒ\[ƒX‚Ìƒm[ƒh */
+    /** ãƒ‰ãƒ©ãƒƒã‚°ã‚½ãƒ¼ã‚¹ã®ãƒãƒ¼ãƒ‰ */
     private TreeViewTreeNode sourceNode;
 
     /**
-     * ƒhƒ‰ƒbƒOŠJn‚ÉŒÄ‚Î‚ê‚Ü‚·D
+     * ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹æ™‚ã«å‘¼ã°ã‚Œã¾ã™ï¼
      */
     public void dragEnter(DropTargetDragEvent ev) {
         super.dragEnter(ev);
-        // ƒ\[ƒX‚ğ•Û‚µ‚Ü‚·D
+        // ã‚½ãƒ¼ã‚¹ã‚’ä¿æŒã—ã¾ã™ï¼
         sourceNode = tree.getTreeNode();
 Debug.println("src: " + sourceNode);
 Debug.println("src hash: " + sourceNode.hashCode());
     }
 
     /**
-     * ƒhƒ‰ƒbƒO“®ì’†‚ÉŒÄ‚Î‚ê‚Ü‚·D
+     * ãƒ‰ãƒ©ãƒƒã‚°å‹•ä½œä¸­ã«å‘¼ã°ã‚Œã¾ã™ï¼
      */
     public void dragOver(DropTargetDragEvent ev) {
         super.dragOver(ev);
-        // ƒ}ƒEƒX‚ÌˆÊ’u‚Ìƒm[ƒh‚ğ‘I‘ğ‚µ‚Ü‚·D
+        // ãƒã‚¦ã‚¹ã®ä½ç½®ã®ãƒãƒ¼ãƒ‰ã‚’é¸æŠã—ã¾ã™ï¼
         Point point = ev.getLocation();
         TreePath path = tree.getPathForLocation(point.x, point.y);
         if (path == null) {
@@ -99,9 +99,9 @@ Debug.println("src hash: " + sourceNode.hashCode());
     }
 
     /**
-     * You need to implement here dropping procedure. data ‚ÍƒVƒŠƒAƒ‰ƒCƒY‚³‚ê‚½‚à‚Ì‚ğƒfƒVƒŠƒAƒ‰ƒCƒY‚µ‚½ ‚à‚Ì‚È‚Ì‚ÅƒNƒ[ƒ“‚Å‚·D
+     * You need to implement here dropping procedure. data ã¯ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚ºã•ã‚ŒãŸã‚‚ã®ã‚’ãƒ‡ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚ºã—ãŸ ã‚‚ã®ãªã®ã§ã‚¯ãƒ­ãƒ¼ãƒ³ã§ã™ï¼
      * 
-     * @param data ƒhƒƒbƒv‚³‚ê‚½ƒf[ƒ^
+     * @param data ãƒ‰ãƒ­ãƒƒãƒ—ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿
      */
     protected boolean dropImpl(DropTargetDropEvent ev, Object data) {
 

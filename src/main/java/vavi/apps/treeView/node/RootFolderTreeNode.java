@@ -10,7 +10,7 @@ import vavi.apps.treeView.FolderTreeNode;
 
 
 /**
- * ƒ‹[ƒgƒtƒHƒ‹ƒ_‚ÌƒcƒŠ[ƒm[ƒh‚Å‚·D
+ * ãƒ«ãƒ¼ãƒˆãƒ•ã‚©ãƒ«ãƒ€ã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã§ã™ï¼
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010821 nsano initial version <br>
@@ -18,9 +18,9 @@ import vavi.apps.treeView.FolderTreeNode;
 public class RootFolderTreeNode extends FolderTreeNode {
 
     /**
-     * ƒ‹[ƒgƒtƒHƒ‹ƒ_‚Ìƒm[ƒh‚ğ\’z‚µ‚Ü‚·D
+     * ãƒ«ãƒ¼ãƒˆãƒ•ã‚©ãƒ«ãƒ€ã®ãƒãƒ¼ãƒ‰ã‚’æ§‹ç¯‰ã—ã¾ã™ï¼
      * 
-     * @param userObject ƒm[ƒh‚Ìƒf[ƒ^
+     * @param userObject ãƒãƒ¼ãƒ‰ã®ãƒ‡ãƒ¼ã‚¿
      */
     public RootFolderTreeNode(Object userObject) {
         super(userObject);

@@ -49,7 +49,7 @@ import vavi.util.RegexFileFilter;
 
 
 /**
- * ƒcƒŠ[ƒrƒ…[‚Å‚·D
+ * ãƒ„ãƒªãƒ¼ãƒ“ãƒ¥ãƒ¼ã§ã™ï¼
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>
@@ -57,16 +57,16 @@ import vavi.util.RegexFileFilter;
  */
 public class TreeView {
 
-    /** ƒŠƒ\[ƒXƒoƒ“ƒhƒ‹ */
+    /** ãƒªã‚½ãƒ¼ã‚¹ãƒãƒ³ãƒ‰ãƒ« */
     private static final ResourceBundle rb = ResourceBundle.getBundle("vavi.apps.treeView.TreeViewResource", Locale.getDefault());
 
-    /** Tree ‚Ì UI */
+    /** Tree ã® UI */
     private TreeViewTree tree;
 
-    /** ƒ‹[ƒg‚ÌƒcƒŠ[ƒm[ƒh */
+    /** ãƒ«ãƒ¼ãƒˆã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ */
     private TreeViewTreeNode root;
 
-    /** ƒXƒe[ƒ^ƒXƒo[ */
+    /** ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ */
     private JLabel statusBar = new JLabel(rb.getString("statusBar.welcome"));
 
     /** The popup menu */
@@ -75,7 +75,7 @@ public class TreeView {
     private TreeViewTreeEditor editor;
 
     /**
-     * TreeView ‚ğì¬‚µ‚Ü‚·D
+     * TreeView ã‚’ä½œæˆã—ã¾ã™ï¼
      */
     public TreeView() {
 
@@ -92,14 +92,14 @@ public class TreeView {
     }
 
     /**
-     * Tree ‚Ì UI ‚ğ•Ô‚µ‚Ü‚·D
+     * Tree ã® UI ã‚’è¿”ã—ã¾ã™ï¼
      */
     public JTree getUI() {
         return tree;
     }
 
     /**
-     * ƒƒjƒ…[ƒo[‚ğæ“¾‚µ‚Ü‚·D
+     * ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ã‚’å–å¾—ã—ã¾ã™ï¼
      */
     public JMenuBar getMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -155,7 +155,7 @@ public class TreeView {
     }
 
     /**
-     * ƒc[ƒ‹ƒo[‚ğæ“¾‚µ‚Ü‚·D
+     * ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã‚’å–å¾—ã—ã¾ã™ï¼
      */
     public JToolBar getToolBar() {
         JToolBar toolBar = new JToolBar();
@@ -178,26 +178,26 @@ public class TreeView {
         return toolBar;
     }
 
-    /** ƒXƒe[ƒ^ƒXƒo[‚ğæ“¾‚µ‚Ü‚·D */
+    /** ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼ã‚’å–å¾—ã—ã¾ã™ï¼ */
     public JLabel getStatusBar() {
         return statusBar;
     }
 
-    /** ""ƒƒjƒ…[ */
+    /** ""ãƒ¡ãƒ‹ãƒ¥ãƒ¼ */
     private JMenu objectMenu;
 
-    /** "ƒEƒCƒ“ƒhƒE"ƒƒjƒ…[ */
+    /** "ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦"ãƒ¡ãƒ‹ãƒ¥ãƒ¼ */
     private JMenu windowMenu;
 
     /**
-     * "ƒEƒBƒ“ƒhƒE"ƒƒjƒ…[‚ğæ“¾‚µ‚Ü‚·D
+     * "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦"ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’å–å¾—ã—ã¾ã™ï¼
      */
     public JMenu getWindowMenu() {
         return windowMenu;
     }
 
     /**
-     * ƒ|ƒbƒvƒAƒbƒvƒƒjƒ…[‚Ìİ’è‚ğ‚µ‚Ü‚·D
+     * ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è¨­å®šã‚’ã—ã¾ã™ï¼
      */
     private JPopupMenu createPopupMenu() {
 
@@ -222,7 +222,7 @@ public class TreeView {
     // -------------------------------------------------------------------------
 
     /**
-     * ‰Šúó‘Ô‚É‚µ‚Ü‚·D
+     * åˆæœŸçŠ¶æ…‹ã«ã—ã¾ã™ï¼
      */
     private void init() {
         try {
@@ -236,7 +236,7 @@ Debug.printStackTrace(e);
     }
 
     /**
-     * ƒcƒŠ[ƒm[ƒh‚ğƒ[ƒh‚µ‚Ü‚·D
+     * ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’ãƒ­ãƒ¼ãƒ‰ã—ã¾ã™ï¼
      */
     private void load(InputStream is) throws IOException {
         root = new DomXMLLoader(is).readRootTreeNode();
@@ -244,14 +244,14 @@ Debug.printStackTrace(e);
     }
 
     /**
-     * ƒcƒŠ[ƒm[ƒh‚ğƒZ[ƒu‚µ‚Ü‚·D
+     * ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’ã‚»ãƒ¼ãƒ–ã—ã¾ã™ï¼
      */
     private void save(OutputStream os) throws IOException {
         new DomXMLSaver(os).writeRootTreeNode(root);
     }
 
     /**
-     * I—¹‚µ‚Ü‚·D
+     * çµ‚äº†ã—ã¾ã™ï¼
      */
     private void exit() {
         System.exit(0);
@@ -262,20 +262,20 @@ Debug.printStackTrace(e);
     private boolean isPastable = false;
 
     /**
-     * ‘I‘ğ‚³‚ê‚Ä‚¢‚éƒm[ƒh‚É‰‚¶‚Äƒƒjƒ…[•\¦‚ğ§Œä‚µ‚Ü‚·D
+     * é¸æŠã•ã‚Œã¦ã„ã‚‹ãƒãƒ¼ãƒ‰ã«å¿œã˜ã¦ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºã‚’åˆ¶å¾¡ã—ã¾ã™ï¼
      * 
-     * @param node ‘I‘ğ‚³‚ê‚½ƒm[ƒh
+     * @param node é¸æŠã•ã‚ŒãŸãƒãƒ¼ãƒ‰
      */
     private void setActionStates(TreeViewTreeNode node) {
-        // ‚»‚ê‚¼‚ê‚Ìƒƒjƒ…[‚ªÀs‚Å‚«‚é‚©‚ğƒ`ƒFƒbƒN‚µ‚Ä•\¦‚ğŒˆ’è
+        // ãã‚Œãã‚Œã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒå®Ÿè¡Œã§ãã‚‹ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦è¡¨ç¤ºã‚’æ±ºå®š
 
-        if (node != null) { // ƒAƒCƒeƒ€‘I‘ğ
+        if (node != null) { // ã‚¢ã‚¤ãƒ†ãƒ é¸æŠæ™‚
 
             cutAction.setEnabled(node.canCut());
             copyAction.setEnabled(node.canCopy());
             pasteAction.setEnabled(node.canCopy() && isPastable);
             deleteAction.setEnabled(node.canDelete());
-        } else { // ƒAƒCƒeƒ€”ñ‘I‘ğ
+        } else { // ã‚¢ã‚¤ãƒ†ãƒ éé¸æŠæ™‚
 
             cutAction.setEnabled(false);
             copyAction.setEnabled(false);
@@ -286,7 +286,7 @@ Debug.printStackTrace(e);
 
     // -------------------------------------------------------------------------
 
-    /** ƒm[ƒh‚ğŠJ‚­ƒAƒNƒVƒ‡ƒ“ */
+    /** ãƒãƒ¼ãƒ‰ã‚’é–‹ãã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action openAction = new AbstractAction(rb.getString("action.open"), (ImageIcon) UIManager.get("treeView.openIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -299,7 +299,7 @@ Debug.printStackTrace(e);
     };
 
     /**
-     * ƒI[ƒvƒ“‚Ìˆ—‚ğs‚¢‚Ü‚·D
+     * ã‚ªãƒ¼ãƒ—ãƒ³ã®å‡¦ç†ã‚’è¡Œã„ã¾ã™ï¼
      * 
      * @param node
      */
@@ -313,7 +313,7 @@ Debug.printStackTrace(e);
         }
     }
 
-    /** ƒIƒuƒWƒFƒNƒg‚ğƒJƒbƒg‚·‚éƒAƒNƒVƒ‡ƒ“ */
+    /** ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚«ãƒƒãƒˆã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action cutAction = new AbstractAction(rb.getString("action.cut"), (ImageIcon) UIManager.get("treeView.cutIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -327,7 +327,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** ƒIƒuƒWƒFƒNƒg‚ğƒRƒs[‚·‚éƒAƒNƒVƒ‡ƒ“ */
+    /** ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action copyAction = new AbstractAction(rb.getString("action.copy"), (ImageIcon) UIManager.get("treeView.copyIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -341,7 +341,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** ƒIƒuƒWƒFƒNƒg‚ğƒy[ƒXƒg‚·‚éƒAƒNƒVƒ‡ƒ“ */
+    /** ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒšãƒ¼ã‚¹ãƒˆã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action pasteAction = new AbstractAction(rb.getString("action.paste"), (ImageIcon) UIManager.get("treeView.pasteIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -355,14 +355,14 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** ƒIƒuƒWƒFƒNƒg‚ğíœ‚·‚éƒAƒNƒVƒ‡ƒ“ */
+    /** ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤ã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action deleteAction = new AbstractAction(rb.getString("action.delete"), (ImageIcon) UIManager.get("treeView.deleteIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
             try {
                 statusBar.setText(rb.getString("action.delete.start"));
 
-                // ƒ_ƒCƒAƒƒO‚Åíœ‚ÌŠm”F‚ğ‚µ‚Ü‚·D
+                // ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã§å‰Šé™¤ã®ç¢ºèªã‚’ã—ã¾ã™ï¼
                 if (JOptionPane.showConfirmDialog(null, rb.getString("action.delete.dialog"), rb.getString("dialog.title.confirm"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
                     editor.delete();
@@ -375,7 +375,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** ƒcƒŠ[ƒrƒ…[‚ğI—¹‚·‚éƒAƒNƒVƒ‡ƒ“ */
+    /** ãƒ„ãƒªãƒ¼ãƒ“ãƒ¥ãƒ¼ã‚’çµ‚äº†ã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action exitAction = new AbstractAction(rb.getString("action.exit")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -385,10 +385,10 @@ Debug.printStackTrace(e);
             // JOptionPane.YES_NO_OPTION);
 
             // switch (r) {
-            // case JOptionPane.YES_OPTION: // ‚Í‚¢ -> close
+            // case JOptionPane.YES_OPTION: // ã¯ã„ -> close
             exit();
             // return true;
-            // case JOptionPane.NO_OPTION: // ‚¢‚¢‚¦ -> cancel
+            // case JOptionPane.NO_OPTION: // ã„ã„ãˆ -> cancel
             // default: // x -> cancel
             // return false;
             // }
@@ -398,7 +398,7 @@ Debug.printStackTrace(e);
     /** */
     private static final RegexFileFilter fileFilter = new RegexFileFilter(".+\\.xml", "XML File");
 
-    /** ‰ŠúƒcƒŠ[‚ÌƒZ[ƒu‚ğs‚¤ƒAƒNƒVƒ‡ƒ“ */
+    /** åˆæœŸãƒ„ãƒªãƒ¼ã®ã‚»ãƒ¼ãƒ–ã‚’è¡Œã†ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action saveAction = new AbstractAction(rb.getString("action.save")) {
         private JFileChooser fc = new JFileChooser();
         {
@@ -422,7 +422,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** ƒo[ƒWƒ‡ƒ“•\¦‚ğs‚¤ƒAƒNƒVƒ‡ƒ“ */
+    /** ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨ç¤ºã‚’è¡Œã†ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action showVersionAction = new AbstractAction(rb.getString("action.showVersion")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -432,7 +432,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** g—pà–¾‚Ì•\¦‚ğs‚¤ƒAƒNƒVƒ‡ƒ“ */
+    /** ä½¿ç”¨èª¬æ˜ã®è¡¨ç¤ºã‚’è¡Œã†ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
     private Action showManualAction = new AbstractAction(rb.getString("action.showManual")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -444,7 +444,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** ƒGƒ‰[ƒƒbƒZ[ƒW‚Ìƒ_ƒCƒAƒƒO‚ğ•\¦‚µ‚Ü‚·D */
+    /** ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤ºã—ã¾ã™ï¼ */
     private void showError(Exception e) {
         // Debug.printStackTrace(e);
         statusBar.setText(e.getMessage());
@@ -480,7 +480,7 @@ Debug.printStackTrace(e);
 
     /** */
     private void select(List<TreeViewTreeNode> selection) {
-        if (selection.size() == 1) { // ƒAƒCƒeƒ€(’P‘Ì)‘I‘ğ
+        if (selection.size() == 1) { // ã‚¢ã‚¤ãƒ†ãƒ (å˜ä½“)é¸æŠæ™‚
             TreeViewTreeNode node = selection.get(0);
             statusBar.setText(node.getUserObject().toString());
             setActionStates(node);
@@ -523,31 +523,31 @@ Debug.printStackTrace(e);
 
     // -------------------------------------------------------------------------
 
-    /** EditorEvent ‹@\‚Ìƒ†[ƒeƒBƒŠƒeƒB */
+    /** EditorEvent æ©Ÿæ§‹ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ */
     private EditorSupport editorSupport = new EditorSupport();
 
-    /** Editor ƒŠƒXƒi[‚ğ’Ç‰Á‚µ‚Ü‚·D */
+    /** Editor ãƒªã‚¹ãƒŠãƒ¼ã‚’è¿½åŠ ã—ã¾ã™ï¼ */
     public void addEditorListener(EditorListener l) {
         editorSupport.addEditorListener(l);
     }
 
-    /** Editor ƒŠƒXƒi[‚ğíœ‚µ‚Ü‚·D */
+    /** Editor ãƒªã‚¹ãƒŠãƒ¼ã‚’å‰Šé™¤ã—ã¾ã™ï¼ */
     public void removeEditorListener(EditorListener l) {
         editorSupport.removeEditorListener(l);
     }
 
-    /** EditorEvent ‚ğ”­s‚µ‚Ü‚·D */
+    /** EditorEvent ã‚’ç™ºè¡Œã—ã¾ã™ï¼ */
     protected void fireEditorUpdated(EditorEvent ev) {
         editorSupport.fireEditorUpdated(ev);
     }
 
     // -------------------------------------------------------------------------
 
-    /** ƒvƒƒpƒeƒB */
+    /** ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ */
     static Properties props = new Properties();
 
     /**
-     * ‰Šú‰»‚µ‚Ü‚·D
+     * åˆæœŸåŒ–ã—ã¾ã™ï¼
      */
     static {
         final String path = "TreeView.properties";
@@ -586,7 +586,7 @@ Debug.println("no property for: tv.action." + i + ".iconName");
     // -------------------------------------------------------------------------
 
     /**
-     * ƒvƒƒOƒ‰ƒ€ƒGƒ“ƒgƒŠ‚Å‚·D
+     * ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚¨ãƒ³ãƒˆãƒªã§ã™ï¼
      */
     public static void main(String[] args) throws Exception {
 

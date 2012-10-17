@@ -7,7 +7,7 @@
 package vavi.apps.treeView;
 
 /**
- * ƒtƒ@ƒCƒ‹‚ÌƒcƒŠ[ƒm[ƒh‚Å‚·D
+ * ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã§ã™ï¼
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>
@@ -15,9 +15,9 @@ package vavi.apps.treeView;
 public abstract class FileTreeNode extends TreeViewTreeNode {
 
     /**
-     * ƒtƒ@ƒCƒ‹‚Ìƒm[ƒh‚ğ\’z‚µ‚Ü‚·D
+     * ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒãƒ¼ãƒ‰ã‚’æ§‹ç¯‰ã—ã¾ã™ï¼
      * 
-     * @param data ƒm[ƒh‚Ìƒf[ƒ^
+     * @param data ãƒãƒ¼ãƒ‰ã®ãƒ‡ãƒ¼ã‚¿
      */
     public FileTreeNode(Object data) {
         super(data);
@@ -26,43 +26,43 @@ public abstract class FileTreeNode extends TreeViewTreeNode {
     // -------------------------------------------------------------------------
 
     /**
-     * ‘I‘ğƒ^[ƒQƒbƒg‚Ìíœ‚ğ‚µ‚Ü‚·D
+     * é¸æŠã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å‰Šé™¤ã‚’ã—ã¾ã™ï¼
      * 
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     public void delete() throws TreeViewException {
         deleteController();
     }
 
     /**
-     * •ÒWƒ^[ƒQƒbƒg‚ğØ‚èæ‚è‘ÎÛ‚Éİ’è‚µ‚Ü‚·D ’¼Œã‚É paste ‚³‚ê‚é‚ÆˆÚ“®‚É‚È‚è‚Ü‚·D
+     * ç·¨é›†ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’åˆ‡ã‚Šå–ã‚Šå¯¾è±¡ã«è¨­å®šã—ã¾ã™ï¼ ç›´å¾Œã« paste ã•ã‚Œã‚‹ã¨ç§»å‹•ã«ãªã‚Šã¾ã™ï¼
      * 
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     public void cut() throws TreeViewException {
-        // Ø‚èæ‚è‚Å‚«‚é‚©‚Ç‚¤‚©‚Ìƒ`ƒFƒbƒN
+        // åˆ‡ã‚Šå–ã‚Šã§ãã‚‹ã‹ã©ã†ã‹ã®ãƒã‚§ãƒƒã‚¯
         if (!canCut()) {
             throw new TreeViewException(rb.getString("action.cut.error"));
         }
 
-        // Ø‚èæ‚èƒ‚[ƒh‚Éİ’è
+        // åˆ‡ã‚Šå–ã‚Šãƒ¢ãƒ¼ãƒ‰ã«è¨­å®š
         isCut = true;
     }
 
     /**
-     * ‘I‘ğ‚³‚ê‚Ä‚¢‚éƒ^[ƒQƒbƒg‚ğƒoƒbƒtƒ@‚ÉƒRƒs[‚µ‚Ü‚·D
+     * é¸æŠã•ã‚Œã¦ã„ã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’ãƒãƒƒãƒ•ã‚¡ã«ã‚³ãƒ”ãƒ¼ã—ã¾ã™ï¼
      * 
-     * @throws TreeViewException ƒRƒs[‚Å‚«‚È‚©‚Á‚½
+     * @throws TreeViewException ã‚³ãƒ”ãƒ¼ã§ããªã‹ã£ãŸ
      */
     public void copy() throws TreeViewException {
         isCut = false;
     }
 
     /**
-     * ƒRƒs[ƒoƒbƒtƒ@‚Ì“à—e‚ğ‘I‘ğˆÊ’u‚É“\‚è•t‚¯‚Ü‚·D <br>
-     * ‘O‚Ì‘€ì‚ªØ‚èæ‚è‚¾‚Á‚½ê‡‚ÍˆÚ“®‚É‚È‚è‚Ü‚·D ƒJƒbƒg‚©ƒRƒs[‚É‚ ‚í‚¹‚Ä from ‚ğ‚»‚Ì‚à‚Ì‚© ƒRƒs[‚µ‚½‚à‚Ì‚©‚ğƒ†[ƒU‚ªİ’è‚·‚é•K—v‚ª‚ ‚è‚Ü‚·D
+     * ã‚³ãƒ”ãƒ¼ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’é¸æŠä½ç½®ã«è²¼ã‚Šä»˜ã‘ã¾ã™ï¼ <br>
+     * å‰ã®æ“ä½œãŒåˆ‡ã‚Šå–ã‚Šã ã£ãŸå ´åˆã¯ç§»å‹•ã«ãªã‚Šã¾ã™ï¼ ã‚«ãƒƒãƒˆã‹ã‚³ãƒ”ãƒ¼ã«ã‚ã‚ã›ã¦ from ã‚’ãã®ã‚‚ã®ã‹ ã‚³ãƒ”ãƒ¼ã—ãŸã‚‚ã®ã‹ã‚’ãƒ¦ãƒ¼ã‚¶ãŒè¨­å®šã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ï¼
      * 
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     public void paste(TreeViewTreeNode from) throws TreeViewException {
 
@@ -72,14 +72,14 @@ public abstract class FileTreeNode extends TreeViewTreeNode {
         }
 
         if (from.isCut()) {
-            // ‘O‚Ì‘€ì‚ªØ‚èæ‚è‚¾‚Á‚½ê‡‚ÍˆÚ“®‚·‚é
+            // å‰ã®æ“ä½œãŒåˆ‡ã‚Šå–ã‚Šã ã£ãŸå ´åˆã¯ç§»å‹•ã™ã‚‹
             from.move(this);
             return;
         }
 
         from.isCut = false;
 
-        // ’£‚è•t‚¯‚Å‚«‚é‚©‚Ç‚¤‚©‚Ìƒ`ƒFƒbƒN
+        // å¼µã‚Šä»˜ã‘ã§ãã‚‹ã‹ã©ã†ã‹ã®ãƒã‚§ãƒƒã‚¯
         if (!this.canPaste(from)) {
             throw new TreeViewException(rb.getString("action.paste.error"));
         }
@@ -88,21 +88,21 @@ public abstract class FileTreeNode extends TreeViewTreeNode {
     }
 
     /**
-     * ƒcƒŠ[ƒf[ƒ^‚ğˆÚ“®‚µ‚Ü‚·D
+     * ãƒ„ãƒªãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’ç§»å‹•ã—ã¾ã™ï¼
      * 
-     * @param to ˆÚ“®æ
-     * @throws TreeViewException ‚Å‚«‚È‚©‚Á‚½ê‡
+     * @param to ç§»å‹•å…ˆ
+     * @throws TreeViewException ã§ããªã‹ã£ãŸå ´åˆ
      */
     protected void move(TreeViewTreeNode to) throws TreeViewException {
 
         isCut = false;
 
-        // ˆÚ“®‘ÎÛ‚ÆˆÚ“®æ‚ª“¯‚¶ê‡‚Í‰½‚à‚µ‚È‚¢
+        // ç§»å‹•å¯¾è±¡ã¨ç§»å‹•å…ˆãŒåŒã˜å ´åˆã¯ä½•ã‚‚ã—ãªã„
         if (this.equals(to)) {
             throw new TreeViewException(rb.getString("action.paste.same"));
         }
 
-        // ˆÚ“®æ‚ª‰Â”\‚©‚Ç‚¤‚©
+        // ç§»å‹•å…ˆãŒå¯èƒ½ã‹ã©ã†ã‹
         if (!to.canPaste(this)) {
             throw new TreeViewException(rb.getString("action.paste.error"));
         }

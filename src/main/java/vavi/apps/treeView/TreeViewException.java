@@ -7,7 +7,7 @@
 package vavi.apps.treeView;
 
 /**
- * TreeView ‚Ì—áŠO‚ª”­¶‚µ‚½ê‡ƒXƒ[‚³‚ê‚Ü‚·D
+ * TreeView ã®ä¾‹å¤–ãŒç™ºç”Ÿã—ãŸå ´åˆã‚¹ãƒ­ãƒ¼ã•ã‚Œã¾ã™ï¼
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>
@@ -15,36 +15,36 @@ package vavi.apps.treeView;
  */
 public final class TreeViewException extends Exception {
 
-    /** “à•ïƒGƒ‰[ */
+    /** å†…åŒ…ã‚¨ãƒ©ãƒ¼ */
     private Throwable throwable;
 
     /**
-     * Ú×ƒƒbƒZ[ƒW‚ğ‚½‚È‚¢ TreeViewException ‚ğ\’z‚µ‚Ü‚·D
+     * è©³ç´°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æŒãŸãªã„ TreeViewException ã‚’æ§‹ç¯‰ã—ã¾ã™ï¼
      */
     public TreeViewException() {
         super();
     }
 
     /**
-     * Ú×ƒƒbƒZ[ƒW‚ğ‚Â TreeViewException ‚ğ\’z‚µ‚Ü‚·D
+     * è©³ç´°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æŒã¤ TreeViewException ã‚’æ§‹ç¯‰ã—ã¾ã™ï¼
      * 
-     * @param s Ú×ƒƒbƒZ[ƒW
+     * @param s è©³ç´°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
      */
     public TreeViewException(String s) {
         super(s);
     }
 
     /**
-     * “à•ïƒGƒ‰[‚ğ‚Â TreeViewException ‚ğ\’z‚µ‚Ü‚·D
+     * å†…åŒ…ã‚¨ãƒ©ãƒ¼ã‚’æŒã¤ TreeViewException ã‚’æ§‹ç¯‰ã—ã¾ã™ï¼
      * 
-     * @param t “à•ï‚·‚éƒGƒ‰[
+     * @param t å†…åŒ…ã™ã‚‹ã‚¨ãƒ©ãƒ¼
      */
     public TreeViewException(Throwable t) {
         this.throwable = t;
     }
 
     /**
-     * “à•ïƒGƒ‰[‚ğ•Ô‚µ‚Ü‚·D
+     * å†…åŒ…ã‚¨ãƒ©ãƒ¼ã‚’è¿”ã—ã¾ã™ï¼
      */
     public Throwable getThrowable() {
         return throwable;

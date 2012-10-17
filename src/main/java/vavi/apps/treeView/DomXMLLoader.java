@@ -30,10 +30,10 @@ import vavi.util.Debug;
 
 
 /**
- * ƒcƒŠ[‚Ì‰Šúƒf[ƒ^‚Ì XML ƒ[ƒ_‚Å‚·D
+ * ãƒ„ãƒªãƒ¼ã®åˆæœŸãƒ‡ãƒ¼ã‚¿ã® XML ãƒ­ãƒ¼ãƒ€ã§ã™ï¼
  * 
- * 0.0.0 ƒm[ƒh‚Ì–¼‘O‚Ì‚İ <name> ‚ğg—p
- * 0.1.0 ƒm[ƒh‚Ì userObject ‚Í XMLEncoder ‚ÅƒVƒŠƒAƒ‰ƒCƒY‚³‚ê‚Ä‚¢‚é <url> ‚ğg—p
+ * 0.0.0 ãƒãƒ¼ãƒ‰ã®åå‰ã®ã¿ <name> ã‚’ä½¿ç”¨
+ * 0.1.0 ãƒãƒ¼ãƒ‰ã® userObject ã¯ XMLEncoder ã§ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚ºã•ã‚Œã¦ã„ã‚‹ <url> ã‚’ä½¿ç”¨
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010906 nsano initial version <br>
@@ -41,13 +41,13 @@ import vavi.util.Debug;
  */
 public class DomXMLLoader implements XMLLoader {
 
-    /** ƒ‹[ƒg‚ÌƒcƒŠ[ƒm[ƒh */
+    /** ãƒ«ãƒ¼ãƒˆã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ */
     private TreeViewTreeNode rootTreeNode = null;
 
-    /** XML ƒf[ƒ^‚Ìƒo[ƒWƒ‡ƒ“ */
+    /** XML ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ */
     private String version;
 
-    /** ƒcƒŠ[‚Ì‰Šúƒf[ƒ^‚Ì XML ƒ[ƒ_‚ğ\’z‚µ‚Ü‚·D */
+    /** ãƒ„ãƒªãƒ¼ã®åˆæœŸãƒ‡ãƒ¼ã‚¿ã® XML ãƒ­ãƒ¼ãƒ€ã‚’æ§‹ç¯‰ã—ã¾ã™ï¼ */
     public DomXMLLoader(InputStream is) throws IOException {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -96,21 +96,21 @@ Debug.println(root.getAttribute("version"));
                     } else {
                         rootTreeNode = getChildTreeNode(node);
                     }
-                } else { // XML ƒ‹[ƒg‚ÌŸ‚ÍƒcƒŠ[‚Ìƒ‹[ƒgƒm[ƒh‚Ì‚İ
+                } else { // XML ãƒ«ãƒ¼ãƒˆã®æ¬¡ã¯ãƒ„ãƒªãƒ¼ã®ãƒ«ãƒ¼ãƒˆãƒãƒ¼ãƒ‰ã®ã¿
 Debug.println("invalid node: " + node.getNodeName());
                 }
-            } else { // ‰üs“™‚ğ‚Æ‚Î‚·
+            } else { // æ”¹è¡Œç­‰ã‚’ã¨ã°ã™
 // Debug.println("invalid node: " + node.getNodeType());
             }
         }
     }
 
-    /** ƒ‹[ƒg‚ÌƒcƒŠ[ƒm[ƒh‚ğæ“¾‚µ‚Ü‚·D */
+    /** ãƒ«ãƒ¼ãƒˆã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’å–å¾—ã—ã¾ã™ï¼ */
     public TreeViewTreeNode readRootTreeNode() {
         return rootTreeNode;
     }
 
-    /** q‹Ÿ‚Ìƒm[ƒh‚ğæ“¾‚µ‚Ü‚·D */
+    /** å­ä¾›ã®ãƒãƒ¼ãƒ‰ã‚’å–å¾—ã—ã¾ã™ï¼ */
     private TreeViewTreeNode getChildTreeNode(Node node) {
 
         Vector<TreeViewTreeNode> childTreeNodes = new Vector<TreeViewTreeNode>();
@@ -157,7 +157,7 @@ Debug.println("invalid child: " + child.getNodeName());
     }
 
     /**
-     * V‚µ‚¢ TreeViewTreeNode ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚µ‚Ü‚·D
+     * æ–°ã—ã„ TreeViewTreeNode ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã—ã¾ã™ï¼
      * 
      * @version 0.1.0
      */
@@ -177,7 +177,7 @@ Debug.println(e);
     }
 
     /**
-     * V‚µ‚¢ TreeViewTreeNode ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚µ‚Ü‚·D
+     * æ–°ã—ã„ TreeViewTreeNode ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã—ã¾ã™ï¼
      * 
      * @version 0.0.0
      */

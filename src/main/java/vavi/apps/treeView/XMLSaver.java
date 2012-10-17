@@ -16,7 +16,7 @@ import java.io.IOException;
  * @version 0.00 041105 nsano initial version <br>
  */
 public interface XMLSaver {
-    /** ƒ‹[ƒgˆÈ‰º‚ÌƒcƒŠ[ƒm[ƒh‚ğ‘‚«‚İ‚Ü‚·D */
+    /** ãƒ«ãƒ¼ãƒˆä»¥ä¸‹ã®ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’æ›¸ãè¾¼ã¿ã¾ã™ï¼ */
     void writeRootTreeNode(TreeViewTreeNode root) throws IOException;
 }
 /* */

@@ -47,9 +47,9 @@ import vavi.util.StringUtil;
 
 
 /**
- * ƒcƒŠ[ƒrƒ…[‚Å‚·D
+ * ãƒ„ãƒªãƒ¼ãƒ“ãƒ¥ãƒ¼ã§ã™ï¼
  * 
- * @todo •¡” DnD
+ * @todo è¤‡æ•° DnD
  * 
  * @event EditorEvent("expand")
  * @event EditorEvent("popupMenu")
@@ -62,9 +62,9 @@ import vavi.util.StringUtil;
 public class TreeViewTree extends JTree {
 
     /**
-     * •`‰æƒcƒŠ[‚ğì¬‚µ‚Ü‚·D
+     * æç”»ãƒ„ãƒªãƒ¼ã‚’ä½œæˆã—ã¾ã™ï¼
      * 
-     * @param root ƒcƒŠ[‚Ìƒ‚ƒfƒ‹
+     * @param root ãƒ„ãƒªãƒ¼ã®ãƒ¢ãƒ‡ãƒ«
      */
     public TreeViewTree(TreeViewTreeNode root) {
 
@@ -73,7 +73,7 @@ public class TreeViewTree extends JTree {
         TreeViewTreeModel treeModel = new TreeViewTreeModel(root);
         setModel(treeModel);
         setCellRenderer(tcr);
-        // rename ‚Å‚«‚é‚æ‚¤‚É‚·‚é
+        // rename ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
         setEditable(true);
 
         addMouseListener(ml);
@@ -81,7 +81,7 @@ public class TreeViewTree extends JTree {
 
         ToolTipManager.sharedInstance().registerComponent(this);
 
-        // ƒhƒ‰ƒbƒO‚·‚é‘¤‚ÌƒNƒ‰ƒX
+        // ãƒ‰ãƒ©ãƒƒã‚°ã™ã‚‹å´ã®ã‚¯ãƒ©ã‚¹
         new Draggable(this, null) {
             {
 Debug.println("here");
@@ -89,7 +89,7 @@ Debug.println("here");
                 image = (Image) UIManager.get("treeViewTree.dragImage");
             }
 
-            /** Transferable ƒf[ƒ^‚ğæ“¾‚µ‚Ü‚·D */
+            /** Transferable ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã—ã¾ã™ï¼ */
             protected Transferable getTransferable(DragGestureEvent ev) {
                 TreeViewTreeNode node = getTreeNode();
                 if (node == null) {
@@ -110,21 +110,21 @@ Debug.println("now action: " + action + ": " + ((action & DnDConstants.ACTION_CO
                 }
             }
 
-            /** DnD ‚ğI—¹‚µ‚Ü‚·D */
+            /** DnD ã‚’çµ‚äº†ã—ã¾ã™ï¼ */
             protected void dragDropEnd(DragSourceEvent ev) {
 Debug.println("here");
                 setEditable(true);
             }
         };
 
-        // ƒhƒƒbƒv‚³‚ê‚é‘¤‚ÌƒNƒ‰ƒX
+        // ãƒ‰ãƒ­ãƒƒãƒ—ã•ã‚Œã‚‹å´ã®ã‚¯ãƒ©ã‚¹
         new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, new TreeViewTreeDTListener(this), true);
     }
 
     // -------------------------------------------------------------------------
 
     /**
-     * ‘I‘ğ‚³‚ê‚Ä‚¢‚éƒcƒŠ[ƒm[ƒh‚ğ•Ô‚µ‚Ü‚·D
+     * é¸æŠã•ã‚Œã¦ã„ã‚‹ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’è¿”ã—ã¾ã™ï¼
      * 
      * @return a selected tree node
      */
@@ -138,7 +138,7 @@ Debug.println("here");
     }
 
     /**
-     * Œ»İ‚Ìƒ}ƒEƒX‚Ìƒ|ƒWƒVƒ‡ƒ“‚É‚ ‚éƒcƒŠ[ƒm[ƒh‚ğ•Ô‚µ‚Ü‚·D
+     * ç¾åœ¨ã®ãƒã‚¦ã‚¹ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã«ã‚ã‚‹ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’è¿”ã—ã¾ã™ï¼
      * 
      * @param x x point of mouse
      * @param y y point of mouse
@@ -146,7 +146,7 @@ Debug.println("here");
      */
     private TreeViewTreeNode getTreeNode(int x, int y) {
         TreePath tp = getPathForLocation(x, y);
-        if (tp != null) { // TODO ˆÓ–¡‚í‚©‚ç‚ñ
+        if (tp != null) { // TODO æ„å‘³ã‚ã‹ã‚‰ã‚“
             return (TreeViewTreeNode) tp.getLastPathComponent();
         } else {
             return null;
@@ -154,10 +154,10 @@ Debug.println("here");
     }
 
     /**
-     * TreeViewTree ‚ÌƒZƒŒƒNƒVƒ‡ƒ“ƒŠƒXƒi‚Å‚·D
+     * TreeViewTree ã®ã‚»ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ãƒªã‚¹ãƒŠã§ã™ï¼
      */
     private TreeSelectionListener tsl = new TreeSelectionListener() {
-        /** ƒcƒŠ[‚Ì‘I‘ğ‚ª•ÏX‚³‚ê‚½ê‡‚ÉŒÄ‚Î‚ê‚Ü‚·D */
+        /** ãƒ„ãƒªãƒ¼ã®é¸æŠãŒå¤‰æ›´ã•ã‚ŒãŸå ´åˆã«å‘¼ã°ã‚Œã¾ã™ï¼ */
         public void valueChanged(TreeSelectionEvent ev) {
 
             TreePath[] selected = getSelectionPaths();
@@ -176,11 +176,11 @@ Debug.println("here");
     };
 
     /**
-     * ƒcƒŠ[ã‚Ìƒ}ƒEƒX‚ÌƒCƒxƒ“ƒgˆ—‚ğs‚¤ƒNƒ‰ƒX‚Å‚·D
+     * ãƒ„ãƒªãƒ¼ä¸Šã®ãƒã‚¦ã‚¹ã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã§ã™ï¼
      */
     private MouseListener ml = new MouseAdapter() {
 
-        /** ƒ}ƒEƒX‚ªƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«ŒÄ‚Î‚ê‚Ü‚·D */
+        /** ãƒã‚¦ã‚¹ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ãå‘¼ã°ã‚Œã¾ã™ï¼ */
         public void mouseClicked(MouseEvent ev) {
 
             if (ev.getClickCount() == 2) {
@@ -189,7 +189,7 @@ Debug.println("here");
                                                   TreeViewTree.this, "expand", node));
             }
 
-            // ƒ|ƒbƒvƒAƒbƒvƒƒjƒ…[‚ğ‚»‚ÌˆÊ’u‚É•\¦‚·‚é
+            // ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ãã®ä½ç½®ã«è¡¨ç¤ºã™ã‚‹
             if (SwingUtilities.isRightMouseButton(ev)) {
                 // if (ev.getModifiers() == MouseEvent.BUTTON3_MASK) {
                 // if (ev.isPopupTrigger()) {
@@ -203,7 +203,7 @@ Debug.println("here");
     };
 
     /**
-     * ƒcƒŠ[‚Ìƒ‚ƒfƒ‹‚ÌƒNƒ‰ƒX‚Å‚·D
+     * ãƒ„ãƒªãƒ¼ã®ãƒ¢ãƒ‡ãƒ«ã®ã‚¯ãƒ©ã‚¹ã§ã™ï¼
      * 
      * @version 000214 nsano fix not renamable node bug.
      */
@@ -228,12 +228,12 @@ Debug.println("here");
     private EditorListener el = new EditorListener() {
         public void editorUpdated(EditorEvent ev) {
             String name = ev.getName();
-            if ("expand".equals(name)) { // ƒtƒHƒ‹ƒ_‚Ì“WŠJ
+            if ("expand".equals(name)) { // ãƒ•ã‚©ãƒ«ãƒ€ã®å±•é–‹
                 expand((TreePath) ev.getArgument());
-            } else if ("delete".equals(name)) { // íœ
+            } else if ("delete".equals(name)) { // å‰Šé™¤
                 Object[] args = (Object[]) ev.getArgument();
                 delete((TreeNode) args[0], (int[]) args[1], (TreeNode[]) args[2]);
-            } else if ("insert".equals(name)) { // ’Ç‰Á
+            } else if ("insert".equals(name)) { // è¿½åŠ 
                 insert((TreeNode) ev.getArgument());
             }
         }
@@ -259,7 +259,7 @@ Debug.println("here");
     // -------------------------------------------------------------------------
 
     /**
-     * ƒcƒŠ[‚ÌƒZƒ‹ƒŒƒ“ƒ_ƒ‰‚ÌƒNƒ‰ƒX‚Å‚·D
+     * ãƒ„ãƒªãƒ¼ã®ã‚»ãƒ«ãƒ¬ãƒ³ãƒ€ãƒ©ã®ã‚¯ãƒ©ã‚¹ã§ã™ï¼
      */
     private TreeCellRenderer tcr = new DefaultTreeCellRenderer() {
         /**
@@ -345,20 +345,20 @@ Debug.println("here");
 
     // -------------------------------------------------------------------------
 
-    /** EditorEvent ‹@\‚Ìƒ†[ƒeƒBƒŠƒeƒB */
+    /** EditorEvent æ©Ÿæ§‹ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ */
     private EditorSupport editorSupport = new EditorSupport();
 
-    /** Editor ƒŠƒXƒi[‚ğ’Ç‰Á‚µ‚Ü‚·D */
+    /** Editor ãƒªã‚¹ãƒŠãƒ¼ã‚’è¿½åŠ ã—ã¾ã™ï¼ */
     public void addEditorListener(EditorListener l) {
         editorSupport.addEditorListener(l);
     }
 
-    /** Editor ƒŠƒXƒi[‚ğíœ‚µ‚Ü‚·D */
+    /** Editor ãƒªã‚¹ãƒŠãƒ¼ã‚’å‰Šé™¤ã—ã¾ã™ï¼ */
     public void removeEditorListener(EditorListener l) {
         editorSupport.removeEditorListener(l);
     }
 
-    /** EditorEvent ‚ğ”­s‚µ‚Ü‚·D */
+    /** EditorEvent ã‚’ç™ºè¡Œã—ã¾ã™ï¼ */
     protected void fireEditorUpdated(EditorEvent ev) {
         editorSupport.fireEditorUpdated(ev);
     }

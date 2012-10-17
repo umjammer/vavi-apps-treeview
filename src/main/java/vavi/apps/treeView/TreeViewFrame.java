@@ -21,21 +21,21 @@ import javax.swing.border.BevelBorder;
 
 
 /**
- * TreeView ‚ğƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Æ‚µ‚Äg—p‚·‚éÛ‚ÌƒtƒŒ[ƒ€‚Å‚·D
+ * TreeView ã‚’ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã¨ã—ã¦ä½¿ç”¨ã™ã‚‹éš›ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã™ï¼
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>
  */
 public final class TreeViewFrame extends JFrame {
 
-    /** ƒŠƒ\[ƒXƒoƒ“ƒhƒ‹ */
+    /** ãƒªã‚½ãƒ¼ã‚¹ãƒãƒ³ãƒ‰ãƒ« */
     private static final ResourceBundle rb = ResourceBundle.getBundle("vavi.apps.treeView.TreeViewResource", Locale.getDefault());
 
-    /** ‰E‘¤‚Ì UI */
+    /** å³å´ã® UI */
     private JDesktopPane desktop = new JDesktopPane();
 
     /**
-     * TreeView ‚Ì Frame ‚ğì¬‚µ‚Ü‚·D
+     * TreeView ã® Frame ã‚’ä½œæˆã—ã¾ã™ï¼
      */
     public TreeViewFrame(TreeView treeView) {
         setTitle(rb.getString("version.title"));
@@ -84,16 +84,16 @@ public final class TreeViewFrame extends JFrame {
 
     // -------------------------------------------------------------------------
 
-    /** • */
+    /** å¹… */
     private static final int FRAME_WIDTH;
 
-    /** ‚‚³ */
+    /** é«˜ã• */
     private static final int FRAME_HEIGHT;
 
-    /** ‰¡‚ÌˆÊ’u */
+    /** æ¨ªã®ä½ç½® */
     private static final int FRAME_X;
 
-    /** c‚ÌˆÊ’u */
+    /** ç¸¦ã®ä½ç½® */
     private static final int FRAME_Y;
 
     static {

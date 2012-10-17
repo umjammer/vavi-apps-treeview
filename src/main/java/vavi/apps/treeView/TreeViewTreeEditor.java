@@ -23,7 +23,7 @@ import vavi.util.Debug;
 
 
 /**
- * JTree ‚ÌƒGƒfƒBƒ^‚Å‚·D
+ * JTree ã®ã‚¨ãƒ‡ã‚£ã‚¿ã§ã™ï¼
  * 
  * @event EditorEvent("cut", List<Component>)
  * @event EditorEvent("copy", List<Component>)
@@ -147,20 +147,20 @@ public class TreeViewTreeEditor {
 
     // -------------------------------------------------------------------------
 
-    /** EditorEvent ‹@\‚Ìƒ†[ƒeƒBƒŠƒeƒB */
+    /** EditorEvent æ©Ÿæ§‹ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ */
     private EditorSupport editorSupport = new EditorSupport();
 
-    /** Editor ƒŠƒXƒi[‚ğ’Ç‰Á‚µ‚Ü‚·D */
+    /** Editor ãƒªã‚¹ãƒŠãƒ¼ã‚’è¿½åŠ ã—ã¾ã™ï¼ */
     public void addEditorListener(EditorListener l) {
         editorSupport.addEditorListener(l);
     }
 
-    /** Editor ƒŠƒXƒi[‚ğíœ‚µ‚Ü‚·D */
+    /** Editor ãƒªã‚¹ãƒŠãƒ¼ã‚’å‰Šé™¤ã—ã¾ã™ï¼ */
     public void removeEditorListener(EditorListener l) {
         editorSupport.removeEditorListener(l);
     }
 
-    /** EditorEvent ‚ğ”­s‚µ‚Ü‚·D */
+    /** EditorEvent ã‚’ç™ºè¡Œã—ã¾ã™ï¼ */
     protected void fireEditorUpdated(EditorEvent ev) {
         editorSupport.fireEditorUpdated(ev);
     }
