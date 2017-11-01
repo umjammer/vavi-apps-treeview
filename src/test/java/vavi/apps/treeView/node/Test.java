@@ -12,8 +12,8 @@ import java.io.*;
 /**
  * ユーザオブジェクトのテスト
  *
- * @author	<a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
- * @version	0.00	010908	nsano	initial version <br>
+ * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @version 0.00 010908 nsano initial version <br>
  */
 public class Test
     implements Serializable {
@@ -24,28 +24,28 @@ public class Test
     public Test() {}
 
     public Test(String name, int i) {
-	this.name = name;
-	this.i = i;
+        this.name = name;
+        this.i = i;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     public String getName() {
-	return name;
+        return name;
     }
 
     public void setI(int i) {
-	this.i = i;
+        this.i = i;
     }
 
     public int getI() {
-	return i;
+        return i;
     }
 
     public String toString() {
-	return name;
+        return name;
     }
 }
 
