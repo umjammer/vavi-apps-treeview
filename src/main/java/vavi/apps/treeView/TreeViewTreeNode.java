@@ -215,6 +215,7 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
      * {@link DefaultMutableTreeNode#getUserObject()} は transient です。
      * このツリーノードを直列化するためにオーバライドします。
      */
+    @SuppressWarnings("hiding")
     protected Object userObject;
 
     /**

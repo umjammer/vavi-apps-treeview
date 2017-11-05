@@ -165,7 +165,7 @@ Debug.println("here");
                 return;
             }
 
-            Vector<Object> selection = new Vector<Object>();
+            Vector<Object> selection = new Vector<>();
             for (int i = 0; i < selected.length; i++) {
                 selection.addElement(selected[i].getLastPathComponent());
             }

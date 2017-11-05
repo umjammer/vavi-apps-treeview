@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -221,13 +220,16 @@ public class TreeView {
 
     // -------------------------------------------------------------------------
 
+    /** */
+    private Dao dao = new XmlDao();
+
     /**
      * 初期状態にします．
      */
     private void init() {
         try {
             InputStream is = getClass().getResourceAsStream(props.getProperty("tv.resource.tree"));
-            root = new DomXMLLoader(is).readRootTreeNode();
+            root = dao.read(is);
         } catch (Exception e) {
 Debug.println(props.getProperty("tv.resource.tree") + " cannot read: tv.resource.tree");
 Debug.printStackTrace(e);
@@ -238,8 +240,9 @@ Debug.printStackTrace(e);
     /**
      * ツリーノードをロードします．
      */
+    @SuppressWarnings("unused")
     private void load(InputStream is) throws IOException {
-        root = new DomXMLLoader(is).readRootTreeNode();
+        root = dao.read(is);
         ((DefaultTreeModel) tree.getModel()).setRoot(root);
     }
 
@@ -247,7 +250,7 @@ Debug.printStackTrace(e);
      * ツリーノードをセーブします．
      */
     private void save(OutputStream os) throws IOException {
-        new DomXMLSaver(os).writeRootTreeNode(root);
+        dao.write(root, os);
     }
 
     /**
@@ -554,8 +557,9 @@ Debug.printStackTrace(e);
         final Class<?> clazz = TreeView.class;
 
         try {
+            Properties ps = new Properties();
             InputStream is = clazz.getResourceAsStream(path);
-            props.load(is);
+            ps.load(is);
             is.close();
 
             Toolkit t = Toolkit.getDefaultToolkit();
@@ -577,8 +581,13 @@ Debug.println("no property for: tv.action." + i + ".iconName");
 
                 i++;
             }
+
+            props = new Properties();
+            is = clazz.getResourceAsStream("/local.properties");
+            props.load(is);
+            is.close();
         } catch (Exception e) {
-            Debug.println(Level.SEVERE, rb.getString("property.file"));
+            e.printStackTrace();;
             System.exit(1);
         }
     }
@@ -593,6 +602,7 @@ Debug.println("no property for: tv.action." + i + ".iconName");
         TreeView tree = new TreeView();
 
         JFrame frame = new TreeViewFrame(tree);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 }
