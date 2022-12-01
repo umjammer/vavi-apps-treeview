@@ -49,7 +49,7 @@ import vavi.util.StringUtil;
 /**
  * ツリービューです．
  * 
- * @todo 複数 DnD
+ * TODO 複数 DnD
  * 
  * @event EditorEvent("expand")
  * @event EditorEvent("popupMenu")
@@ -73,7 +73,7 @@ public class TreeViewTree extends JTree {
         TreeViewTreeModel treeModel = new TreeViewTreeModel(root);
         setModel(treeModel);
         setCellRenderer(tcr);
-        // rename できるようにする
+        // make the tree view able to rename
         setEditable(true);
 
         addMouseListener(ml);
@@ -89,7 +89,7 @@ Debug.println("here");
                 image = (Image) UIManager.get("treeViewTree.dragImage");
             }
 
-            /** Transferable データを取得します． */
+            /** gets Transferable */
             protected Transferable getTransferable(DragGestureEvent ev) {
                 TreeViewTreeNode node = getTreeNode();
                 if (node == null) {
@@ -110,21 +110,21 @@ Debug.println("now action: " + action + ": " + ((action & DnDConstants.ACTION_CO
                 }
             }
 
-            /** DnD を終了します． */
+            /** terminates DnD */
             protected void dragDropEnd(DragSourceEvent ev) {
 Debug.println("here");
                 setEditable(true);
             }
         };
 
-        // ドロップされる側のクラス
+        // the class to drop
         new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, new TreeViewTreeDTListener(this), true);
     }
 
     // -------------------------------------------------------------------------
 
     /**
-     * 選択されているツリーノードを返します．
+     * Returns a selected tree node.
      * 
      * @return a selected tree node
      */
@@ -138,7 +138,7 @@ Debug.println("here");
     }
 
     /**
-     * 現在のマウスのポジションにあるツリーノードを返します．
+     * Returns a node that located at mouse pointer.
      * 
      * @param x x point of mouse
      * @param y y point of mouse
@@ -154,9 +154,9 @@ Debug.println("here");
     }
 
     /**
-     * TreeViewTree のセレクションリスナです．
+     * The selection listener for TreeViewTree.
      */
-    private TreeSelectionListener tsl = new TreeSelectionListener() {
+    private final TreeSelectionListener tsl = new TreeSelectionListener() {
         /** ツリーの選択が変更された場合に呼ばれます． */
         public void valueChanged(TreeSelectionEvent ev) {
 
@@ -166,8 +166,8 @@ Debug.println("here");
             }
 
             Vector<Object> selection = new Vector<>();
-            for (int i = 0; i < selected.length; i++) {
-                selection.addElement(selected[i].getLastPathComponent());
+            for (TreePath treePath : selected) {
+                selection.addElement(treePath.getLastPathComponent());
             }
 
             // TreeViewActions
@@ -176,9 +176,9 @@ Debug.println("here");
     };
 
     /**
-     * ツリー上のマウスのイベント処理を行うクラスです．
+     * Process mouse events for the tree.
      */
-    private MouseListener ml = new MouseAdapter() {
+    private final MouseListener ml = new MouseAdapter() {
 
         /** マウスがクリックされたとき呼ばれます． */
         public void mouseClicked(MouseEvent ev) {
@@ -189,7 +189,7 @@ Debug.println("here");
                                                   TreeViewTree.this, "expand", node));
             }
 
-            // ポップアップメニューをその位置に表示する
+            // display the popup menu at the mouse cursor
             if (SwingUtilities.isRightMouseButton(ev)) {
                 // if (ev.getModifiers() == MouseEvent.BUTTON3_MASK) {
                 // if (ev.isPopupTrigger()) {
@@ -203,9 +203,9 @@ Debug.println("here");
     };
 
     /**
-     * ツリーのモデルのクラスです．
+     * Thr tree model.
      * 
-     * @version 000214 nsano fix not renamable node bug.
+     * @version 000214 nsano fix not able to rename node bug.
      */
     private final class TreeViewTreeModel extends DefaultTreeModel {
         /** */
@@ -228,12 +228,12 @@ Debug.println("here");
     private EditorListener el = new EditorListener() {
         public void editorUpdated(EditorEvent ev) {
             String name = ev.getName();
-            if ("expand".equals(name)) { // フォルダの展開
+            if ("expand".equals(name)) { // expands folders
                 expand((TreePath) ev.getArgument());
-            } else if ("delete".equals(name)) { // 削除
+            } else if ("delete".equals(name)) { // remove
                 Object[] args = (Object[]) ev.getArgument();
                 delete((TreeNode) args[0], (int[]) args[1], (TreeNode[]) args[2]);
-            } else if ("insert".equals(name)) { // 追加
+            } else if ("insert".equals(name)) { // insert
                 insert((TreeNode) ev.getArgument());
             }
         }
@@ -259,7 +259,7 @@ Debug.println("here");
     // -------------------------------------------------------------------------
 
     /**
-     * ツリーのセルレンダラのクラスです．
+     * The tree cell renderer.
      */
     private TreeCellRenderer tcr = new DefaultTreeCellRenderer() {
         /**
@@ -273,9 +273,9 @@ Debug.println("here");
             this.hasFocus = hasFocus;
 
             TreeViewTreeNode node = (TreeViewTreeNode) value;
-            // Debug.println(Debug.DEBUG, "node: " + node);
+// Debug.println(Debug.DEBUG, "node: " + node);
             Object data = node.getUserObject();
-            // Debug.println(Debug.DEBUG, "data: " + data);
+// Debug.println(Debug.DEBUG, "data: " + data);
 
             /* Set the text. */
             setText(data.toString());
@@ -293,7 +293,7 @@ Debug.println("here");
 
             try {
                 Class<?> beanClass = data.getClass();
-                // Debug.println(beanClass);
+//Debug.println(beanClass);
                 BeanInfo info = Introspector.getBeanInfo(beanClass);
                 /* Set the image. */
                 Image image;
@@ -316,7 +316,7 @@ Debug.println("here");
                 Debug.println(Level.SEVERE, e);
             }
 
-            // Debug.println(Debug.DEBUG, item);
+//Debug.println(Debug.DEBUG, item);
             /* Set the image. */
             if (node.isCut()) {
                 setIcon(UIManager.getIcon("treeViewTree.markIcon"));
@@ -345,20 +345,20 @@ Debug.println("here");
 
     // -------------------------------------------------------------------------
 
-    /** EditorEvent 機構のユーティリティ */
+    /** EditorEvent utility */
     private EditorSupport editorSupport = new EditorSupport();
 
-    /** Editor リスナーを追加します． */
+    /** Adds an Editor listener. */
     public void addEditorListener(EditorListener l) {
         editorSupport.addEditorListener(l);
     }
 
-    /** Editor リスナーを削除します． */
+    /** Removes an Editor listener. */
     public void removeEditorListener(EditorListener l) {
         editorSupport.removeEditorListener(l);
     }
 
-    /** EditorEvent を発行します． */
+    /** Fires an Editor event. */
     protected void fireEditorUpdated(EditorEvent ev) {
         editorSupport.fireEditorUpdated(ev);
     }
