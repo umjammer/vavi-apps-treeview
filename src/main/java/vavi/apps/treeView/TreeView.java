@@ -439,7 +439,7 @@ Debug.printStackTrace(e);
 
         public void actionPerformed(ActionEvent ev) {
             try {
-                Runtime.getRuntime().exec(props.getProperty("tv.path.browser") + " " + props.getProperty("tv.url.manual"));
+                Runtime.getRuntime().exec(new String[] {props.getProperty("tv.path.browser"), props.getProperty("tv.url.manual")});
             } catch (Exception e) {
                 showError(e);
             }
