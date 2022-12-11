@@ -62,16 +62,21 @@ import vavi.util.StringUtil;
 public class TreeViewTree extends JTree {
 
     /**
-     * 描画ツリーを作成します．
-     * 
      * @param root ツリーのモデル
      */
-    public TreeViewTree(TreeViewTreeNode root) {
+    public void setRoot(TreeViewTreeNode root) {
 
         root.addEditorListener(el);
 
         TreeViewTreeModel treeModel = new TreeViewTreeModel(root);
-        setModel(treeModel);
+        super.setModel(treeModel);
+    }
+
+    /**
+     * 描画ツリーを作成します．
+     */
+    public TreeViewTree() {
+
         setCellRenderer(tcr);
         // make the tree view able to rename
         setEditable(true);
@@ -222,20 +227,16 @@ Debug.println("here");
         }
     }
 
-    // -------------------------------------------------------------------------
-
     /** */
-    private EditorListener el = new EditorListener() {
-        public void editorUpdated(EditorEvent ev) {
-            String name = ev.getName();
-            if ("expand".equals(name)) { // expands folders
-                expand((TreePath) ev.getArgument());
-            } else if ("delete".equals(name)) { // remove
-                Object[] args = (Object[]) ev.getArgument();
-                delete((TreeNode) args[0], (int[]) args[1], (TreeNode[]) args[2]);
-            } else if ("insert".equals(name)) { // insert
-                insert((TreeNode) ev.getArgument());
-            }
+    private final EditorListener el = ev -> {
+        String name = ev.getName();
+        if ("expand".equals(name)) { // expands folders
+            expand((TreePath) ev.getArgument());
+        } else if ("delete".equals(name)) { // remove
+            Object[] args = (Object[]) ev.getArgument();
+            delete((TreeNode) args[0], (int[]) args[1], (TreeNode[]) args[2]);
+        } else if ("insert".equals(name)) { // insert
+            insert((TreeNode) ev.getArgument());
         }
     };
 
@@ -256,8 +257,6 @@ Debug.println("here");
         treeModel.nodeStructureChanged(node);
     }
 
-    // -------------------------------------------------------------------------
-
     /**
      * The tree cell renderer.
      */
@@ -271,6 +270,10 @@ Debug.println("here");
             String stringValue = tree.convertValueToText(value, selected, expanded, leaf, row, hasFocus);
 
             this.hasFocus = hasFocus;
+
+            if (!(value instanceof TreeViewTreeNode)) {
+                return this;
+            }
 
             TreeViewTreeNode node = (TreeViewTreeNode) value;
 // Debug.println(Debug.DEBUG, "node: " + node);
@@ -343,8 +346,6 @@ Debug.println("here");
         }
     };
 
-    // -------------------------------------------------------------------------
-
     /** EditorEvent utility */
     private EditorSupport editorSupport = new EditorSupport();
 
@@ -363,15 +364,13 @@ Debug.println("here");
         editorSupport.fireEditorUpdated(ev);
     }
 
-    // -------------------------------------------------------------------------
-
     static {
         Toolkit t = Toolkit.getDefaultToolkit();
         Class<?> clazz = TreeViewTree.class;
         UIDefaults table = UIManager.getDefaults();
-        table.put("treeViewTree.markIcon", LookAndFeel.makeIcon(clazz, "resources/mark.png"));
-        table.put("treeViewTree.defaultIcon", LookAndFeel.makeIcon(clazz, "resources/default_file.png"));
-        table.put("treeViewTree.dragImage", t.getImage(clazz.getResource("resources/default_file.png")));
+        table.put("treeViewTree.markIcon", LookAndFeel.makeIcon(clazz, "node/mark.png"));
+        table.put("treeViewTree.defaultIcon", LookAndFeel.makeIcon(clazz, "node/default_file.png"));
+        table.put("treeViewTree.dragImage", t.getImage(clazz.getResource("node/default_file.png")));
     }
 }
 

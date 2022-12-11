@@ -38,7 +38,7 @@
             </goals>
             <configuration>
               <target>
-                <java classname="vavi.apps.treeView.TreeView" fork="true">
+                <java classname="sample.Sample" fork="true">
                   <classpath>
                     <path refid="maven.compile.classpath"/>
                     <path refid="maven.test.classpath"/>
@@ -46,7 +46,8 @@
                   <jvmarg value="-Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties" />
                   <jvmarg value="-Dswing.defaultlaf=com.formdev.flatlaf.FlatLightLaf" />
                   <jvmarg value="-Dapple.laf.useScreenMenuBar=true" />
-                  <jvmarg value="-Dapple.awt.application.name=JWinDiff" />
+                  <jvmarg value="-Dapple.awt.application.name=TreeView" />
+                  <jvmarg value="-Dtv.resource.tree=/sample/tree.xml" />
                 </java>
               </target>
             </configuration>

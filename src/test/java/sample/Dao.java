@@ -4,11 +4,13 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.apps.treeView;
+package sample;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import vavi.apps.treeView.TreeViewTreeNode;
 
 
 /**

@@ -25,7 +25,6 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -75,15 +74,17 @@ public class TreeView {
     /**
      * Creates TreeView．
      */
-    public TreeView() {
-
+    public TreeView(Object userObject) throws IOException {
         popupMenu = createPopupMenu();
         setActionStates(null);
 
-        init();
-
-        tree = new TreeViewTree(root);
+        tree = new TreeViewTree();
         tree.addEditorListener(el);
+
+        init(userObject);
+        InputStream is = vavi.swing.binding.treeview.TreeView.Util.init(userObject);
+        load(is);
+        tree.setRoot(root);
 
         editor = new TreeViewTreeEditor(tree);
         editor.addEditorListener(el);
@@ -220,20 +221,13 @@ public class TreeView {
     // -------------------------------------------------------------------------
 
     /** */
-    private Dao dao = new XmlDao();
+    private Object userObject;
 
     /**
      * Initializes.
      */
-    private void init() {
-        try {
-            InputStream is = getClass().getResourceAsStream(props.getProperty("tv.resource.tree"));
-            root = dao.read(is);
-        } catch (Exception e) {
-Debug.println(props.getProperty("tv.resource.tree") + " cannot read: tv.resource.tree");
-Debug.printStackTrace(e);
-            // System.exit(1);
-        }
+    public void init(Object userObject) {
+        this.userObject = userObject;
     }
 
     /**
@@ -241,7 +235,7 @@ Debug.printStackTrace(e);
      */
     @SuppressWarnings("unused")
     private void load(InputStream is) throws IOException {
-        root = dao.read(is);
+        root = vavi.swing.binding.treeview.TreeView.Util.load(userObject, is);
         ((DefaultTreeModel) tree.getModel()).setRoot(root);
     }
 
@@ -249,7 +243,7 @@ Debug.printStackTrace(e);
      * Saves the tree nodes.
      */
     private void save(OutputStream os) throws IOException {
-        dao.write(root, os);
+        vavi.swing.binding.treeview.TreeView.Util.save(userObject, os, root);
     }
 
     /**
@@ -258,8 +252,6 @@ Debug.printStackTrace(e);
     private void exit() {
         System.exit(0);
     }
-
-    // -------------------------------------------------------------------------
 
     private boolean isPastable = false;
 
@@ -285,8 +277,6 @@ Debug.printStackTrace(e);
             deleteAction.setEnabled(false);
         }
     }
-
-    // -------------------------------------------------------------------------
 
     /** "Open" action */
     private Action openAction = new AbstractAction(rb.getString("action.open"), (ImageIcon) UIManager.get("treeView.openIcon")) {
@@ -448,12 +438,10 @@ Debug.printStackTrace(e);
 
     /** Shows error dialog */
     private void showError(Exception e) {
-        // Debug.printStackTrace(e);
+// Debug.printStackTrace(e);
         statusBar.setText(e.getMessage());
         JOptionPane.showMessageDialog(null, e.getMessage(), rb.getString("dialog.title.error"), JOptionPane.ERROR_MESSAGE);
     }
-
-    // -------------------------------------------------------------------------
 
     /** */
     @SuppressWarnings("unchecked")
@@ -521,8 +509,6 @@ Debug.printStackTrace(e);
         }
     }
 
-    // -------------------------------------------------------------------------
-
     /** EditorEvent utility */
     private EditorSupport editorSupport = new EditorSupport();
 
@@ -540,8 +526,6 @@ Debug.printStackTrace(e);
     protected void fireEditorUpdated(EditorEvent ev) {
         editorSupport.fireEditorUpdated(ev);
     }
-
-    // -------------------------------------------------------------------------
 
     /** */
     static Properties props = new Properties();
@@ -578,20 +562,6 @@ Debug.println("no property for: tv.action." + i + ".iconName");
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    // -------------------------------------------------------------------------
-
-    /**
-     * The program entry pont.
-     */
-    public static void main(String[] args) throws Exception {
-
-        TreeView tree = new TreeView();
-
-        JFrame frame = new TreeViewFrame(tree);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
     }
 }
 

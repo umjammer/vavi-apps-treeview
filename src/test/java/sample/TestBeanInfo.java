@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.apps.treeView.node;
+package sample;
 
 import java.awt.*;
 import java.beans.*;
@@ -17,8 +17,7 @@ import vavi.apps.treeView.*;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 020625 nsano initial version <br>
  */
-public class TestBeanInfo extends SimpleBeanInfo
-    implements TreeNodeInfo {
+public class TestBeanInfo extends SimpleBeanInfo implements TreeNodeInfo {
 
     private final Class<?> clazz = Test.class;
 
@@ -31,11 +30,11 @@ public class TestBeanInfo extends SimpleBeanInfo
     public Image getIcon(int iconKind) {
         switch (iconKind) {
         case ICON_COLOR_16x16_EXT2:
-            return loadImage("resources/default_open.png");
+            return loadImage("/vavi/apps/treeView/node/default_open.png");
         case ICON_COLOR_16x16_EXT1:
-            return loadImage("resources/default_close.png");
+            return loadImage("/vavi/apps/treeView/node/default_close.png");
         default:
-            return loadImage("resources/default_file.png");
+            return loadImage("/vavi/apps/treeView/node/default_file.png");
         }
     }
 
