@@ -8,9 +8,12 @@ package vavi.apps.treeView;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -18,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.border.BevelBorder;
+
+import vavi.util.Debug;
 
 
 /**
@@ -44,14 +49,11 @@ public final class TreeViewFrame extends JFrame {
 
         JLabel statusBar = treeView.getStatusBar();
         statusBar.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        /*
-         * statusBar.setPreferredSize(new Dimension( statusBar.getWidth() + statusBar.getInsets().left +
-         * statusBar.getInsets().right, statusBar.getHeight() + statusBar.getInsets().top + statusBar.getInsets().bottom));
-         * Debug.println("status bar: " + statusBar.getWidth() + ", " + statusBar.getHeight()); Debug.println("status bar: " +
-         * statusBar.getPreferredSize().width + ", " + statusBar.getPreferredSize().height); Debug.println("status bar: " +
-         * statusBar.getWidth() + statusBar.getInsets().left + statusBar.getInsets().right + ", " + statusBar.getHeight() +
-         * statusBar.getInsets().top + statusBar.getInsets().bottom);
-         */
+
+//statusBar.setPreferredSize(new Dimension(statusBar.getWidth() + statusBar.getInsets().left + statusBar.getInsets().right, statusBar.getHeight() + statusBar.getInsets().top + statusBar.getInsets().bottom));
+//Debug.println("status bar: " + statusBar.getWidth() + ", " + statusBar.getHeight());
+//Debug.println("status bar: " + statusBar.getPreferredSize().width + ", " + statusBar.getPreferredSize().height);
+//Debug.println("status bar: " + statusBar.getWidth() + statusBar.getInsets().left + statusBar.getInsets().right + ", " + statusBar.getHeight() + statusBar.getInsets().top + statusBar.getInsets().bottom);
 
         Dimension d = this.getToolkit().getScreenSize();
 
@@ -59,6 +61,12 @@ public final class TreeViewFrame extends JFrame {
         scrollPane.setPreferredSize(new Dimension(d.width / 5, d.height));
 
         JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, desktop);
+        sp.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, e -> {
+Debug.println("split out: " + (double) (int) e.getNewValue() / sp.getMaximumDividerLocation());
+            prefs.putDouble("tv.frame.split", (double) (int) e.getNewValue() / sp.getMaximumDividerLocation());
+        });
+Debug.println("split in: " + prefs.getDouble("tv.frame.split", 0.3));
+        sp.setDividerLocation(prefs.getDouble("tv.frame.split", 0.3));
 
         setJMenuBar(treeView.getMenuBar());
         getContentPane().add(treeView.getToolBar(), BorderLayout.NORTH);
@@ -67,13 +75,28 @@ public final class TreeViewFrame extends JFrame {
 
         setSize(d.width * 6 / 7, d.height * 6 / 7);
 
-        setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        setLocation(FRAME_X, FRAME_Y);
+        int width = prefs.getInt("tv.frame.width", 800);
+        int height = prefs.getInt("tv.frame.height", 640);
+        int x = prefs.getInt("tv.frame.x", 100);
+        int y = prefs.getInt("tv.frame.y", 200);
 
-        validate();
+        setPreferredSize(new Dimension(width, height));
+        setLocation(x, y);
+
+        pack();
+
+        addComponentListener(new ComponentAdapter() {
+            @Override public void componentResized(ComponentEvent e) {
+                prefs.putInt("tv.frame.width", getWidth());
+                prefs.putInt("tv.frame.height", getHeight());
+            }
+            @Override public void componentMoved(ComponentEvent e) {
+                prefs.putInt("tv.frame.x", getX());
+                prefs.putInt("tv.frame.y", getY());
+            }
+        });
     }
 
-    // -------------------------------------------------------------------------
 
     /**
      * Gets the virtual desktop.
@@ -82,28 +105,8 @@ public final class TreeViewFrame extends JFrame {
         return desktop;
     }
 
-    // -------------------------------------------------------------------------
-
-    /** 幅 */
-    private static final int FRAME_WIDTH;
-
-    /** 高さ */
-    private static final int FRAME_HEIGHT;
-
-    /** 横の位置 */
-    private static final int FRAME_X;
-
-    /** 縦の位置 */
-    private static final int FRAME_Y;
-
-    static {
-        Properties props = TreeView.props;
-
-        FRAME_WIDTH = Integer.parseInt(props.getProperty("tv.frame.width"));
-        FRAME_HEIGHT = Integer.parseInt(props.getProperty("tv.frame.height"));
-        FRAME_X = Integer.parseInt(props.getProperty("tv.frame.x"));
-        FRAME_Y = Integer.parseInt(props.getProperty("tv.frame.y"));
-    }
+    /** */
+    private static Preferences prefs = Preferences.userNodeForPackage(TreeView.class);
 }
 
 /* */

@@ -4,9 +4,9 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.apps.treeView.node;
+package sample;
 
-import java.io.*;
+import java.io.Serializable;
 
 
 /**
@@ -15,13 +15,13 @@ import java.io.*;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010908 nsano initial version <br>
  */
-public class Test
-    implements Serializable {
+public class Test implements Serializable {
 
     private String name;
     private int i;
 
-    public Test() {}
+    public Test() {
+    }
 
     public Test(String name, int i) {
         this.name = name;

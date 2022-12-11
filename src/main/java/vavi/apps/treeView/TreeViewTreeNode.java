@@ -62,8 +62,6 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
     public void setActionStates() {
     }
 
-    // -------------------------------------------------------------------------
-
     /**
      * オープンします．
      * 
@@ -127,8 +125,6 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
     public void delete() throws TreeViewException {
         throw new TreeViewException(rb.getString("action.delete.error"));
     }
-
-    // -------------------------------------------------------------------------
 
     /** オープンしたときビューを変更します． */
     protected void openController() {
@@ -209,8 +205,6 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
         return false;
     }
 
-    // -------------------------------------------------------------------------
-
     /**
      * {@link DefaultMutableTreeNode#getUserObject()} は transient です。
      * このツリーノードを直列化するためにオーバライドします。
@@ -234,8 +228,6 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
         return userObject;
     }
 
-    //----
-
     /** EditorEvent 機構のユーティリティ */
     private static EditorSupport editorSupport = new EditorSupport();
 
@@ -253,8 +245,6 @@ public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements
     protected void fireEditorUpdated(EditorEvent ev) {
         editorSupport.fireEditorUpdated(ev);
     }
-
-    //----
 
     private boolean isSelected;
 

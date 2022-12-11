@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <java version="1.4.0-beta2" class="java.beans.XMLDecoder"> 
- <object class="vavi.apps.treeView.node.Test"> 
+ <object class="sample.Test">
   <void property="i"> 
-   <int>1</int> 
+   <int>100</int> 
   </void> 
   <void property="name"> 
-   <string>Test File E</string> 
+   <string>Test Foler B</string> 
   </void> 
  </object> 
 </java> 

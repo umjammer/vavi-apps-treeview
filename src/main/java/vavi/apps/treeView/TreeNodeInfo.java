@@ -18,16 +18,16 @@ import java.beans.*;
 public interface TreeNodeInfo extends BeanInfo {
 
     /** */
-    public static final int ICON_COLOR_16x16_EXT1 = 4;
+    int ICON_COLOR_16x16_EXT1 = 4;
 
     /** */
-    public static final int ICON_COLOR_32x32_EXT1 = 5;
+    int ICON_COLOR_32x32_EXT1 = 5;
 
     /** */
-    public static final int ICON_COLOR_16x16_EXT2 = 6;
+    int ICON_COLOR_16x16_EXT2 = 6;
 
     /** */
-    public static final int ICON_COLOR_32x32_EXT2 = 7;
+    int ICON_COLOR_32x32_EXT2 = 7;
 }
 
 /* */

@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.apps.treeView.node;
+package sample;
 
 import vavi.apps.treeView.FileTreeNode;
 import vavi.apps.treeView.TreeViewException;

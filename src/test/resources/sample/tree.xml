@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<treeview version="0.1.0">
+  <node>
+    <class>sample.RootFolderTreeNode</class>
+    <url>file:src/test/resources/sample/root.xml</url>
+    <node>
+      <class>sample.TestFolderTreeNode</class>
+      <url>file:src/test/resources/sample/Test Foler A.xml
+      </url>
+    </node>
+    <node>
+      <class>sample.TestFolderTreeNode</class>
+      <url>file:src/test/resources/sample/Test Foler B.xml
+      </url>
+      <node>
+        <class>sample.TestFileTreeNode</class>
+        <url>file:src/test/resources/sample/Test File D.xml
+        </url>
+      </node>
+      <node>
+        <class>sample.TestFileTreeNode</class>
+        <url>file:src/test/resources/sample/Test File E.xml
+        </url>
+      </node>
+    </node>
+    <node>
+      <class>sample.TestFileTreeNode</class>
+      <url>file:src/test/resources/sample/Test File C.xml
+      </url>
+    </node>
+  </node>
+</treeview>

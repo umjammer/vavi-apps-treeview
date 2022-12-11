@@ -12,21 +12,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -48,7 +46,7 @@ import vavi.util.RegexFileFilter;
 
 
 /**
- * ツリービューです．
+ * The tree view.
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>
@@ -56,16 +54,16 @@ import vavi.util.RegexFileFilter;
  */
 public class TreeView {
 
-    /** リソースバンドル */
+    /** */
     private static final ResourceBundle rb = ResourceBundle.getBundle("vavi.apps.treeView.TreeViewResource", Locale.getDefault());
 
-    /** Tree の UI */
+    /** UI */
     private TreeViewTree tree;
 
-    /** ルートのツリーノード */
+    /** root tree node */
     private TreeViewTreeNode root;
 
-    /** ステータスバー */
+    /** status bar */
     private JLabel statusBar = new JLabel(rb.getString("statusBar.welcome"));
 
     /** The popup menu */
@@ -74,31 +72,33 @@ public class TreeView {
     private TreeViewTreeEditor editor;
 
     /**
-     * TreeView を作成します．
+     * Creates TreeView．
      */
-    public TreeView() {
-
+    public TreeView(Object userObject) throws IOException {
         popupMenu = createPopupMenu();
         setActionStates(null);
 
-        init();
-
-        tree = new TreeViewTree(root);
+        tree = new TreeViewTree();
         tree.addEditorListener(el);
+
+        init(userObject);
+        InputStream is = vavi.swing.binding.treeview.TreeView.Util.init(userObject);
+        load(is);
+        tree.setRoot(root);
 
         editor = new TreeViewTreeEditor(tree);
         editor.addEditorListener(el);
     }
 
     /**
-     * Tree の UI を返します．
+     * Gets Tree UI.
      */
     public JTree getUI() {
         return tree;
     }
 
     /**
-     * メニューバーを取得します．
+     * Gets the menu bar.
      */
     public JMenuBar getMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -154,7 +154,7 @@ public class TreeView {
     }
 
     /**
-     * ツールバーを取得します．
+     * Gets the tool bar.
      */
     public JToolBar getToolBar() {
         JToolBar toolBar = new JToolBar();
@@ -177,26 +177,26 @@ public class TreeView {
         return toolBar;
     }
 
-    /** ステータスバーを取得します． */
+    /** Gets the status bar. */
     public JLabel getStatusBar() {
         return statusBar;
     }
 
-    /** ""メニュー */
+    /** "" menu */
     private JMenu objectMenu;
 
-    /** "ウインドウ"メニュー */
+    /** "Window" menu */
     private JMenu windowMenu;
 
     /**
-     * "ウィンドウ"メニューを取得します．
+     * Gets "Window" menu.
      */
     public JMenu getWindowMenu() {
         return windowMenu;
     }
 
     /**
-     * ポップアップメニューの設定をします．
+     * Creates the popup menu.
      */
     private JPopupMenu createPopupMenu() {
 
@@ -221,64 +221,55 @@ public class TreeView {
     // -------------------------------------------------------------------------
 
     /** */
-    private Dao dao = new XmlDao();
+    private Object userObject;
 
     /**
-     * 初期状態にします．
+     * Initializes.
      */
-    private void init() {
-        try {
-            InputStream is = getClass().getResourceAsStream(props.getProperty("tv.resource.tree"));
-            root = dao.read(is);
-        } catch (Exception e) {
-Debug.println(props.getProperty("tv.resource.tree") + " cannot read: tv.resource.tree");
-Debug.printStackTrace(e);
-            // System.exit(1);
-        }
+    public void init(Object userObject) {
+        this.userObject = userObject;
     }
 
     /**
-     * ツリーノードをロードします．
+     * Loads a tree nodes.
      */
     @SuppressWarnings("unused")
     private void load(InputStream is) throws IOException {
-        root = dao.read(is);
+        root = vavi.swing.binding.treeview.TreeView.Util.load(userObject, is);
         ((DefaultTreeModel) tree.getModel()).setRoot(root);
     }
 
     /**
-     * ツリーノードをセーブします．
+     * Saves the tree nodes.
      */
     private void save(OutputStream os) throws IOException {
-        dao.write(root, os);
+        vavi.swing.binding.treeview.TreeView.Util.save(userObject, os, root);
     }
 
     /**
-     * 終了します．
+     * Exits the program.
      */
     private void exit() {
         System.exit(0);
     }
 
-    // -------------------------------------------------------------------------
-
     private boolean isPastable = false;
 
     /**
-     * 選択されているノードに応じてメニュー表示を制御します．
+     * Displays a menu suitable for a selected node.
      * 
-     * @param node 選択されたノード
+     * @param node selected dnode
      */
     private void setActionStates(TreeViewTreeNode node) {
-        // それぞれのメニューが実行できるかをチェックして表示を決定
+        // determine a menu for displaying by checking each menu is able to execute or not.
 
-        if (node != null) { // アイテム選択時
+        if (node != null) { // when item selected
 
             cutAction.setEnabled(node.canCut());
             copyAction.setEnabled(node.canCopy());
             pasteAction.setEnabled(node.canCopy() && isPastable);
             deleteAction.setEnabled(node.canDelete());
-        } else { // アイテム非選択時
+        } else { // when item not selected
 
             cutAction.setEnabled(false);
             copyAction.setEnabled(false);
@@ -287,9 +278,7 @@ Debug.printStackTrace(e);
         }
     }
 
-    // -------------------------------------------------------------------------
-
-    /** ノードを開くアクション */
+    /** "Open" action */
     private Action openAction = new AbstractAction(rb.getString("action.open"), (ImageIcon) UIManager.get("treeView.openIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -302,7 +291,7 @@ Debug.printStackTrace(e);
     };
 
     /**
-     * オープンの処理を行います．
+     * Processes "Open".
      * 
      * @param node
      */
@@ -316,7 +305,7 @@ Debug.printStackTrace(e);
         }
     }
 
-    /** オブジェクトをカットするアクション */
+    /** "Cut" action */
     private Action cutAction = new AbstractAction(rb.getString("action.cut"), (ImageIcon) UIManager.get("treeView.cutIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -330,7 +319,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** オブジェクトをコピーするアクション */
+    /** "Copy" action */
     private Action copyAction = new AbstractAction(rb.getString("action.copy"), (ImageIcon) UIManager.get("treeView.copyIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -344,7 +333,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** オブジェクトをペーストするアクション */
+    /** "Paste" action */
     private Action pasteAction = new AbstractAction(rb.getString("action.paste"), (ImageIcon) UIManager.get("treeView.pasteIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -358,14 +347,14 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** オブジェクトを削除するアクション */
+    /** "Delete" action */
     private Action deleteAction = new AbstractAction(rb.getString("action.delete"), (ImageIcon) UIManager.get("treeView.deleteIcon")) {
 
         public void actionPerformed(ActionEvent ev) {
             try {
                 statusBar.setText(rb.getString("action.delete.start"));
 
-                // ダイアログで削除の確認をします．
+                // show confirm dialog
                 if (JOptionPane.showConfirmDialog(null, rb.getString("action.delete.dialog"), rb.getString("dialog.title.confirm"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
                     editor.delete();
@@ -378,7 +367,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** ツリービューを終了するアクション */
+    /** "Exit" action */
     private Action exitAction = new AbstractAction(rb.getString("action.exit")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -401,7 +390,7 @@ Debug.printStackTrace(e);
     /** */
     private static final RegexFileFilter fileFilter = new RegexFileFilter(".+\\.xml", "XML File");
 
-    /** 初期ツリーのセーブを行うアクション */
+    /** "Save" action */
     private Action saveAction = new AbstractAction(rb.getString("action.save")) {
         private JFileChooser fc = new JFileChooser();
         {
@@ -416,7 +405,7 @@ Debug.printStackTrace(e);
                     return;
                 }
                 File file = fc.getSelectedFile();
-                OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+                OutputStream os = new BufferedOutputStream(Files.newOutputStream(file.toPath()));
 
                 save(os);
             } catch (Exception e) {
@@ -425,7 +414,7 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** バージョン表示を行うアクション */
+    /** "About" action */
     private Action showVersionAction = new AbstractAction(rb.getString("action.showVersion")) {
 
         public void actionPerformed(ActionEvent ev) {
@@ -435,55 +424,51 @@ Debug.printStackTrace(e);
         }
     };
 
-    /** 使用説明の表示を行うアクション */
+    /** "Help" action */
     private Action showManualAction = new AbstractAction(rb.getString("action.showManual")) {
 
         public void actionPerformed(ActionEvent ev) {
             try {
-                Runtime.getRuntime().exec(props.getProperty("tv.path.browser") + " " + props.getProperty("tv.url.manual"));
+                Runtime.getRuntime().exec(new String[] {props.getProperty("tv.path.browser"), props.getProperty("tv.url.manual")});
             } catch (Exception e) {
                 showError(e);
             }
         }
     };
 
-    /** エラーメッセージのダイアログを表示します． */
+    /** Shows error dialog */
     private void showError(Exception e) {
-        // Debug.printStackTrace(e);
+// Debug.printStackTrace(e);
         statusBar.setText(e.getMessage());
         JOptionPane.showMessageDialog(null, e.getMessage(), rb.getString("dialog.title.error"), JOptionPane.ERROR_MESSAGE);
     }
 
-    // -------------------------------------------------------------------------
-
     /** */
-    private EditorListener el = new EditorListener() {
-        @SuppressWarnings("unchecked")
-        public void editorUpdated(EditorEvent ev) {
-            String name = ev.getName();
-            if ("select".equals(name)) {
-                select((List<TreeViewTreeNode>) ev.getArgument());
-            } else if ("expand".equals(name)) {
-                expand((TreeViewTreeNode) ev.getArgument());
-            } else if ("popupMenu".equals(name)) {
-                Object[] args = (Object[]) ev.getArgument();
-                showPopupMenu((TreeViewTreeNode) args[0], (Point) args[1]);
-            } else if ("rename".equals(name)) {
-                Object[] args = (Object[]) ev.getArgument();
-                rename((TreeViewTreeNode) args[0], (String) args[1]);
-            } else if ("cut".equals(name)) {
-                isPastable = true;
-            } else if ("copy".equals(name)) {
-                isPastable = true;
-            } else if ("lostOwnership".equals(name)) {
-                isPastable = false;
-            }
+    @SuppressWarnings("unchecked")
+    private EditorListener el = ev -> {
+        String name = ev.getName();
+        if ("select".equals(name)) {
+            select((List<TreeViewTreeNode>) ev.getArgument());
+        } else if ("expand".equals(name)) {
+            expand((TreeViewTreeNode) ev.getArgument());
+        } else if ("popupMenu".equals(name)) {
+            Object[] args = (Object[]) ev.getArgument();
+            showPopupMenu((TreeViewTreeNode) args[0], (Point) args[1]);
+        } else if ("rename".equals(name)) {
+            Object[] args = (Object[]) ev.getArgument();
+            rename((TreeViewTreeNode) args[0], (String) args[1]);
+        } else if ("cut".equals(name)) {
+            isPastable = true;
+        } else if ("copy".equals(name)) {
+            isPastable = true;
+        } else if ("lostOwnership".equals(name)) {
+            isPastable = false;
         }
     };
 
     /** */
     private void select(List<TreeViewTreeNode> selection) {
-        if (selection.size() == 1) { // アイテム(単体)選択時
+        if (selection.size() == 1) { // one item selected
             TreeViewTreeNode node = selection.get(0);
             statusBar.setText(node.getUserObject().toString());
             setActionStates(node);
@@ -524,42 +509,35 @@ Debug.printStackTrace(e);
         }
     }
 
-    // -------------------------------------------------------------------------
-
-    /** EditorEvent 機構のユーティリティ */
+    /** EditorEvent utility */
     private EditorSupport editorSupport = new EditorSupport();
 
-    /** Editor リスナーを追加します． */
+    /** Adds an Editor listener. */
     public void addEditorListener(EditorListener l) {
         editorSupport.addEditorListener(l);
     }
 
-    /** Editor リスナーを削除します． */
+    /** Removes an Editor listener. */
     public void removeEditorListener(EditorListener l) {
         editorSupport.removeEditorListener(l);
     }
 
-    /** EditorEvent を発行します． */
+    /** Fires an Editor event. */
     protected void fireEditorUpdated(EditorEvent ev) {
         editorSupport.fireEditorUpdated(ev);
     }
 
-    // -------------------------------------------------------------------------
-
-    /** プロパティ */
+    /** */
     static Properties props = new Properties();
 
-    /**
-     * 初期化します．
-     */
+    /* */
     static {
         final String path = "TreeView.properties";
         final Class<?> clazz = TreeView.class;
 
         try {
-            Properties ps = new Properties();
             InputStream is = clazz.getResourceAsStream(path);
-            ps.load(is);
+            props.load(is);
             is.close();
 
             Toolkit t = Toolkit.getDefaultToolkit();
@@ -581,29 +559,9 @@ Debug.println("no property for: tv.action." + i + ".iconName");
 
                 i++;
             }
-
-            props = new Properties();
-            is = clazz.getResourceAsStream("/local.properties");
-            props.load(is);
-            is.close();
         } catch (Exception e) {
-            e.printStackTrace();;
-            System.exit(1);
+            throw new IllegalStateException(e);
         }
-    }
-
-    // -------------------------------------------------------------------------
-
-    /**
-     * プログラムエントリです．
-     */
-    public static void main(String[] args) throws Exception {
-
-        TreeView tree = new TreeView();
-
-        JFrame frame = new TreeViewFrame(tree);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
     }
 }
 

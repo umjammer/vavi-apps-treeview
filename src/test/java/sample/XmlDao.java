@@ -4,13 +4,12 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.apps.treeView;
+package sample;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,6 +17,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Constructor;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -37,6 +38,7 @@ import org.w3c.dom.NodeList;
 
 import org.xml.sax.SAXException;
 
+import vavi.apps.treeView.TreeViewTreeNode;
 import vavi.util.Debug;
 
 
@@ -65,7 +67,7 @@ public class XmlDao implements Dao {
         try {
             builder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+            throw new IllegalStateException(e);
         }
 
         factory.setValidating(true);
@@ -139,7 +141,7 @@ Debug.println("child: " + child.getNodeName() + ": " + className);
 Debug.println("child: " + child.getNodeName() + ": " + userObject);
                 } else if ("url".equals(child.getNodeName())) { // 0.1.0
                     urlString = child.getFirstChild().getNodeValue();
-Debug.println("child: " + child.getNodeName() + ": " + urlString);
+Debug.println("child: " + child.getNodeName() + ": " + urlString.trim());
                 } else if ("node".equals(child.getNodeName())) {
                     childTreeNodes.add(getChildTreeNode(child));
                 } else {
@@ -166,7 +168,7 @@ Debug.println("invalid child: " + child.getNodeName());
     /**
      * 新しい TreeViewTreeNode のインスタンスを返します．
      * 
-     * @version 0.1.0
+     * @since 0.1.0
      */
     private static TreeViewTreeNode newInstance(String className, String urlString) {
         try {
@@ -179,14 +181,14 @@ Debug.println("invalid child: " + child.getNodeName());
             return newInstance(className, userObject);
         } catch (Exception e) {
 Debug.println(e);
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+            throw new IllegalStateException(e);
         }
     }
 
     /**
      * 新しい TreeViewTreeNode のインスタンスを返します．
      * 
-     * @version 0.0.0
+     * @since 0.0.0
      */
     private static TreeViewTreeNode newInstance(String className, Object userObject) {
         try {
@@ -236,7 +238,7 @@ Debug.println(e);
      */
     public void write(TreeViewTreeNode root, OutputStream os) throws IOException {
 
-        writer = new OutputStreamWriter(os, "UTF-8");
+        writer = new OutputStreamWriter(os, StandardCharsets.UTF_8);
 
         DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
@@ -278,7 +280,7 @@ Debug.println(e);
     private Element createElement(TreeViewTreeNode node) throws IOException {
 
         File file = new File(node.toString() + ".xml");
-        OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+        OutputStream os = new BufferedOutputStream(Files.newOutputStream(file.toPath()));
         XMLEncoder xe = new XMLEncoder(os);
         xe.writeObject(node.getUserObject());
         xe.close();
