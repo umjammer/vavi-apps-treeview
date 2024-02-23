@@ -21,7 +21,6 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.util.Vector;
 import java.util.logging.Level;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
@@ -43,13 +42,12 @@ import vavi.swing.event.EditorEvent;
 import vavi.swing.event.EditorListener;
 import vavi.swing.event.EditorSupport;
 import vavi.util.Debug;
-import vavi.util.StringUtil;
 
 
 /**
- * ツリービューです．
+ * This class represents tree view UI.
  * 
- * TODO 複数 DnD
+ * TODO multiple DnD
  * 
  * @event EditorEvent("expand")
  * @event EditorEvent("popupMenu")
@@ -62,7 +60,7 @@ import vavi.util.StringUtil;
 public class TreeViewTree extends JTree {
 
     /**
-     * @param root ツリーのモデル
+     * @param root tree model
      */
     public void setRoot(TreeViewTreeNode root) {
 
@@ -73,7 +71,7 @@ public class TreeViewTree extends JTree {
     }
 
     /**
-     * 描画ツリーを作成します．
+     * Creates TreeView view.
      */
     public TreeViewTree() {
 
@@ -86,7 +84,7 @@ public class TreeViewTree extends JTree {
 
         ToolTipManager.sharedInstance().registerComponent(this);
 
-        // ドラッグする側のクラス
+        // the class to be dropped
         new Draggable(this, null) {
             {
 Debug.println("here");
@@ -95,12 +93,13 @@ Debug.println("here");
             }
 
             /** gets Transferable */
+            @Override
             protected Transferable getTransferable(DragGestureEvent ev) {
                 TreeViewTreeNode node = getTreeNode();
                 if (node == null) {
                     return null;
                 }
-Debug.println("node class: " + StringUtil.getClassName(node.getClass()));
+Debug.println("node class: " + node.getClass().getSimpleName());
 Debug.println("node: " + node);
 Debug.println("node hash: " + node.hashCode());
 Debug.println("node user: " + node.getUserObject());
@@ -116,6 +115,7 @@ Debug.println("now action: " + action + ": " + ((action & DnDConstants.ACTION_CO
             }
 
             /** terminates DnD */
+            @Override
             protected void dragDropEnd(DragSourceEvent ev) {
 Debug.println("here");
                 setEditable(true);
@@ -126,7 +126,7 @@ Debug.println("here");
         new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, new TreeViewTreeDTListener(this), true);
     }
 
-    // -------------------------------------------------------------------------
+    // ----
 
     /**
      * Returns a selected tree node.
@@ -151,7 +151,7 @@ Debug.println("here");
      */
     private TreeViewTreeNode getTreeNode(int x, int y) {
         TreePath tp = getPathForLocation(x, y);
-        if (tp != null) { // TODO 意味わからん
+        if (tp != null) { // TODO how come?
             return (TreeViewTreeNode) tp.getLastPathComponent();
         } else {
             return null;
@@ -163,7 +163,7 @@ Debug.println("here");
      */
     private final TreeSelectionListener tsl = new TreeSelectionListener() {
         /** ツリーの選択が変更された場合に呼ばれます． */
-        public void valueChanged(TreeSelectionEvent ev) {
+        @Override public void valueChanged(TreeSelectionEvent ev) {
 
             TreePath[] selected = getSelectionPaths();
             if (selected == null) {
@@ -186,12 +186,12 @@ Debug.println("here");
     private final MouseListener ml = new MouseAdapter() {
 
         /** マウスがクリックされたとき呼ばれます． */
-        public void mouseClicked(MouseEvent ev) {
+        @Override public void mouseClicked(MouseEvent ev) {
 
             if (ev.getClickCount() == 2) {
                 TreeViewTreeNode node = getTreeNode(ev.getX(), ev.getY());
                 fireEditorUpdated(new EditorEvent( // > TreeViewActions
-                                                  TreeViewTree.this, "expand", node));
+                        TreeViewTree.this, "expand", node));
             }
 
             // display the popup menu at the mouse cursor
@@ -200,9 +200,7 @@ Debug.println("here");
                 // if (ev.isPopupTrigger()) {
                 TreeViewTreeNode node = getTreeNode();
                 fireEditorUpdated(new EditorEvent( // > TreeViewActions
-                                                  TreeViewTree.this, "popupMenu", new Object[] {
-                                                      node, ev.getPoint()
-                                                  }));
+                        TreeViewTree.this, "popupMenu", node, ev.getPoint()));
             }
         }
     };
@@ -221,9 +219,7 @@ Debug.println("here");
         /** */
         public void valueForPathChanged(TreePath path, Object newValue) {
             fireEditorUpdated(new EditorEvent( // > TreeViewActions
-                                              this, "rename", new Object[] {
-                                                  path.getLastPathComponent(), newValue
-                                              }));
+                    this, "rename", path.getLastPathComponent(), newValue));
         }
     }
 
@@ -231,12 +227,12 @@ Debug.println("here");
     private final EditorListener el = ev -> {
         String name = ev.getName();
         if ("expand".equals(name)) { // expands folders
-            expand((TreePath) ev.getArgument());
+            expand((TreePath) ev.getArguments()[0]);
         } else if ("delete".equals(name)) { // remove
-            Object[] args = (Object[]) ev.getArgument();
+            Object[] args = ev.getArguments();
             delete((TreeNode) args[0], (int[]) args[1], (TreeNode[]) args[2]);
         } else if ("insert".equals(name)) { // insert
-            insert((TreeNode) ev.getArgument());
+            insert((TreeNode) ev.getArguments()[0]);
         }
     };
 
@@ -260,29 +256,29 @@ Debug.println("here");
     /**
      * The tree cell renderer.
      */
-    private TreeCellRenderer tcr = new DefaultTreeCellRenderer() {
+    private final TreeCellRenderer tcr = new DefaultTreeCellRenderer() {
         /**
          * This is messaged from JTree whenever it needs to get the size of the component or it wants to draw it. This attempts to
          * set the font based on value, which will be a TreeNode.
          */
+        @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 
             String stringValue = tree.convertValueToText(value, selected, expanded, leaf, row, hasFocus);
 
             this.hasFocus = hasFocus;
 
-            if (!(value instanceof TreeViewTreeNode)) {
+            if (!(value instanceof TreeViewTreeNode node)) {
                 return this;
             }
 
-            TreeViewTreeNode node = (TreeViewTreeNode) value;
 // Debug.println(Debug.DEBUG, "node: " + node);
             Object data = node.getUserObject();
 // Debug.println(Debug.DEBUG, "data: " + data);
 
-            /* Set the text. */
+            // Set the text.
             setText(data.toString());
-            /* Tooltips used by the tree. */
+            // Tooltips used by the tree.
             setToolTipText(stringValue);
 
             if (selected) {
@@ -298,10 +294,11 @@ Debug.println("here");
                 Class<?> beanClass = data.getClass();
 //Debug.println(beanClass);
                 BeanInfo info = Introspector.getBeanInfo(beanClass);
-                /* Set the image. */
+                // Set the image.
                 Image image;
                 if (node instanceof FolderTreeNode) {
                     image = info.getIcon(TreeNodeInfo.ICON_COLOR_16x16_EXT1);
+//Debug.println("folder: " + image);
                     if (image != null) {
                         icon = new ImageIcon(image);
                     }
@@ -320,7 +317,7 @@ Debug.println("here");
             }
 
 //Debug.println(Debug.DEBUG, item);
-            /* Set the image. */
+            // Set the image.
             if (node.isCut()) {
                 setIcon(UIManager.getIcon("treeViewTree.markIcon"));
             } else if (expanded) {
@@ -339,7 +336,7 @@ Debug.println("here");
 
             setComponentOrientation(tree.getComponentOrientation());
 
-            /* Update the selected flag for the next paint. */
+            // Update the selected flag for the next paint.
             this.selected = selected;
 
             return this;
@@ -347,7 +344,7 @@ Debug.println("here");
     };
 
     /** EditorEvent utility */
-    private EditorSupport editorSupport = new EditorSupport();
+    private final EditorSupport editorSupport = new EditorSupport();
 
     /** Adds an Editor listener. */
     public void addEditorListener(EditorListener l) {
@@ -371,7 +368,8 @@ Debug.println("here");
         table.put("treeViewTree.markIcon", LookAndFeel.makeIcon(clazz, "node/mark.png"));
         table.put("treeViewTree.defaultIcon", LookAndFeel.makeIcon(clazz, "node/default_file.png"));
         table.put("treeViewTree.dragImage", t.getImage(clazz.getResource("node/default_file.png")));
+        table.put("Tree.closedIcon", LookAndFeel.makeIcon(clazz, "node/default_close.png"));
+        table.put("Tree.openIcon", LookAndFeel.makeIcon(clazz, "node/default_open.png"));
+        table.put("Tree.leafIcon", LookAndFeel.makeIcon(clazz, "node/default_file.png"));
     }
 }
-
-/* */

@@ -12,12 +12,10 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.util.logging.Level;
-
 import javax.swing.tree.TreePath;
 
 import vavi.awt.dnd.BasicDTListener;
 import vavi.util.Debug;
-import vavi.util.StringUtil;
 
 
 /**
@@ -59,7 +57,7 @@ public class TreeViewTreeDTListener extends BasicDTListener {
      * @return the chosen DataFlavor or null if none match
      */
     protected DataFlavor chooseDropFlavor(DropTargetDropEvent ev) {
-        if (ev.isLocalTransfer() == true && ev.isDataFlavorSupported(TreeViewTreeNodeTransferable.flavor)) {
+        if (ev.isLocalTransfer() && ev.isDataFlavorSupported(TreeViewTreeNodeTransferable.flavor)) {
             return TreeViewTreeNodeTransferable.flavor;
         }
         DataFlavor chosen = null;
@@ -69,11 +67,11 @@ public class TreeViewTreeDTListener extends BasicDTListener {
         return chosen;
     }
 
-    /** ドラッグソースのノード */
+    /** a node for drag source */
     private TreeViewTreeNode sourceNode;
 
     /**
-     * ドラッグ開始時に呼ばれます．
+     * Called when starting dragging.
      */
     public void dragEnter(DropTargetDragEvent ev) {
         super.dragEnter(ev);
@@ -84,11 +82,11 @@ Debug.println("src hash: " + sourceNode.hashCode());
     }
 
     /**
-     * ドラッグ動作中に呼ばれます．
+     * Called during dragging.
      */
     public void dragOver(DropTargetDragEvent ev) {
         super.dragOver(ev);
-        // マウスの位置のノードを選択します．
+        // select a node at mouse position
         Point point = ev.getLocation();
         TreePath path = tree.getPathForLocation(point.x, point.y);
         if (path == null) {
@@ -99,20 +97,21 @@ Debug.println("src hash: " + sourceNode.hashCode());
     }
 
     /**
-     * You need to implement here dropping procedure. data はシリアライズされたものをデシリアライズした ものなのでクローンです．
+     * You need to implement here dropping procedure.
+     * data is deserialized serialized, so it's clone.
      * 
-     * @param data ドロップされたデータ
+     * @param data data dropped
      */
     protected boolean dropImpl(DropTargetDropEvent ev, Object data) {
 
-Debug.println("data class: " + StringUtil.getClassName(data.getClass()));
+Debug.println("data class: " + data.getClass().getName());
 Debug.println("data: " + data);
 Debug.println("data hash: " + data.hashCode());
 Debug.println("data user: " + ((TreeViewTreeNode) data).getUserObject());
 Debug.println("data usrH: " + ((TreeViewTreeNode) data).getUserObject().hashCode());
 
         if (!(data instanceof TreeViewTreeNode)) {
-            Debug.println(Level.WARNING, "data is not node");
+Debug.println(Level.WARNING, "data is not node");
             return false;
         }
 

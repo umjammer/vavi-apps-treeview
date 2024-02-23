@@ -11,36 +11,43 @@ import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Locale;
-import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
-
+import javax.swing.BorderFactory;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 
 import vavi.util.Debug;
 
 
 /**
- * TreeView をアプリケーションとして使用する際のフレームです．
+ * This class is an application frame when using TreeView as an application.
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>
  */
 public final class TreeViewFrame extends JFrame {
 
-    /** リソースバンドル */
+    static {
+        UIManager.getDefaults().put("SplitPane.border", BorderFactory.createEmptyBorder());
+        UIManager.getDefaults().put("ScrollPane.border", BorderFactory.createEmptyBorder());
+    }
+
+    /** i18n */
     private static final ResourceBundle rb = ResourceBundle.getBundle("vavi.apps.treeView.TreeViewResource", Locale.getDefault());
 
-    /** 右側の UI */
+    /** right UI */
     private JDesktopPane desktop = new JDesktopPane();
 
     /**
-     * TreeView の Frame を作成します．
+     * Create TreeView Frame.
      */
     public TreeViewFrame(TreeView treeView) {
         setTitle(rb.getString("version.title"));
@@ -48,7 +55,7 @@ public final class TreeViewFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         JLabel statusBar = treeView.getStatusBar();
-        statusBar.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        statusBar.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Panel.background"), 4));
 
 //statusBar.setPreferredSize(new Dimension(statusBar.getWidth() + statusBar.getInsets().left + statusBar.getInsets().right, statusBar.getHeight() + statusBar.getInsets().top + statusBar.getInsets().bottom));
 //Debug.println("status bar: " + statusBar.getWidth() + ", " + statusBar.getHeight());
@@ -62,10 +69,10 @@ public final class TreeViewFrame extends JFrame {
 
         JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, desktop);
         sp.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, e -> {
-Debug.println("split out: " + (double) (int) e.getNewValue() / sp.getMaximumDividerLocation());
+Debug.println(Level.FINE, "split out: " + (double) (int) e.getNewValue() / sp.getMaximumDividerLocation());
             prefs.putDouble("tv.frame.split", (double) (int) e.getNewValue() / sp.getMaximumDividerLocation());
         });
-Debug.println("split in: " + prefs.getDouble("tv.frame.split", 0.3));
+Debug.println(Level.FINE, "split in: " + prefs.getDouble("tv.frame.split", 0.3));
         sp.setDividerLocation(prefs.getDouble("tv.frame.split", 0.3));
 
         setJMenuBar(treeView.getMenuBar());
@@ -96,7 +103,6 @@ Debug.println("split in: " + prefs.getDouble("tv.frame.split", 0.3));
             }
         });
     }
-
 
     /**
      * Gets the virtual desktop.

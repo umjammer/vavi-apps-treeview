@@ -30,7 +30,7 @@ import vavi.swing.event.EditorSupport;
  */
 public abstract class TreeViewTreeNode extends DefaultMutableTreeNode implements Selectable {
 
-    /** リソースバンドル */
+    /** i18n */
     protected static final ResourceBundle rb = ResourceBundle.getBundle("vavi.apps.treeView.TreeViewResource", Locale.getDefault());
 
     /**

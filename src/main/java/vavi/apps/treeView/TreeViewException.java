@@ -7,7 +7,7 @@
 package vavi.apps.treeView;
 
 /**
- * TreeView の例外が発生した場合スローされます．
+ * TreeView exception．
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>

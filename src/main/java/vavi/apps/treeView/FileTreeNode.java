@@ -6,8 +6,9 @@
 
 package vavi.apps.treeView;
 
+
 /**
- * ファイルのツリーノードです．
+ * This class represents a file node.
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>
@@ -15,7 +16,7 @@ package vavi.apps.treeView;
 public abstract class FileTreeNode extends TreeViewTreeNode {
 
     /**
-     * ファイルのノードを構築します．
+     * Creates file node.
      * 
      * @param data ノードのデータ
      */
@@ -23,29 +24,31 @@ public abstract class FileTreeNode extends TreeViewTreeNode {
         super(data);
     }
 
-    // -------------------------------------------------------------------------
+    // ----
 
     /**
-     * 選択ターゲットの削除をします．
+     * Unselects targets.
      * 
-     * @throws TreeViewException できなかった場合
+     * @throws TreeViewException unselection failed
      */
+    @Override
     public void delete() throws TreeViewException {
         deleteController();
     }
 
     /**
-     * 編集ターゲットを切り取り対象に設定します． 直後に paste されると移動になります．
+     * Sets targets as 'cut'．and 'paste' immediately means 'move'.
      * 
-     * @throws TreeViewException できなかった場合
+     * @throws TreeViewException selection failed
      */
+    @Override
     public void cut() throws TreeViewException {
-        // 切り取りできるかどうかのチェック
+        // check to be able to cut.
         if (!canCut()) {
             throw new TreeViewException(rb.getString("action.cut.error"));
         }
 
-        // 切り取りモードに設定
+        // set mode "cut"
         isCut = true;
     }
 
@@ -54,6 +57,7 @@ public abstract class FileTreeNode extends TreeViewTreeNode {
      * 
      * @throws TreeViewException コピーできなかった
      */
+    @Override
     public void copy() throws TreeViewException {
         isCut = false;
     }
@@ -64,6 +68,7 @@ public abstract class FileTreeNode extends TreeViewTreeNode {
      * 
      * @throws TreeViewException できなかった場合
      */
+    @Override
     public void paste(TreeViewTreeNode from) throws TreeViewException {
 
         if (from.isNodeChild(this)) {
@@ -93,6 +98,7 @@ public abstract class FileTreeNode extends TreeViewTreeNode {
      * @param to 移動先
      * @throws TreeViewException できなかった場合
      */
+    @Override
     protected void move(TreeViewTreeNode to) throws TreeViewException {
 
         isCut = false;
@@ -110,5 +116,3 @@ public abstract class FileTreeNode extends TreeViewTreeNode {
         moveController(to);
     }
 }
-
-/* */
