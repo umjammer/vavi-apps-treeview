@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 
 /**
- * ユーザオブジェクトのテスト
+ * Test UserObject.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010908 nsano initial version <br>
@@ -48,5 +48,3 @@ public class Test implements Serializable {
         return name;
     }
 }
-
-/* */

@@ -7,7 +7,7 @@
 package vavi.apps.treeView;
 
 /**
- * フォルダノードのツリーノードです．
+ * This class represents a folder node.
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 010820 nsano initial version <br>
@@ -15,9 +15,9 @@ package vavi.apps.treeView;
 public abstract class FolderTreeNode extends FileTreeNode {
 
     /**
-     * フォルダのノードを構築します．
+     * Creates folder node.
      * 
-     * @param userObject ノードのデータ
+     * @param userObject data of node
      */
     public FolderTreeNode(Object userObject) {
         super(userObject);

@@ -12,7 +12,7 @@ import vavi.apps.treeView.*;
 
 
 /**
- * TestBeanInfo です．
+ * TestBeanInfo.
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 020625 nsano initial version <br>
@@ -21,21 +21,18 @@ public class TestBeanInfo extends SimpleBeanInfo implements TreeNodeInfo {
 
     private final Class<?> clazz = Test.class;
 
-    /** */
+    @Override
     public BeanDescriptor getBeanDescriptor() {
         return new BeanDescriptor(clazz, null);
     }
 
-    /** */
+    @Override
     public Image getIcon(int iconKind) {
-        switch (iconKind) {
-        case ICON_COLOR_16x16_EXT2:
-            return loadImage("/vavi/apps/treeView/node/default_open.png");
-        case ICON_COLOR_16x16_EXT1:
-            return loadImage("/vavi/apps/treeView/node/default_close.png");
-        default:
-            return loadImage("/vavi/apps/treeView/node/default_file.png");
-        }
+        return switch (iconKind) {
+            case ICON_COLOR_16x16_EXT2 -> loadImage("/vavi/apps/treeView/node/default_open.png");
+            case ICON_COLOR_16x16_EXT1 -> loadImage("/vavi/apps/treeView/node/default_close.png");
+            default -> loadImage("/vavi/apps/treeView/node/default_file.png");
+        };
     }
 
     /** */
@@ -46,5 +43,3 @@ public class TestBeanInfo extends SimpleBeanInfo implements TreeNodeInfo {
         return ads;
     }
 }
-
-/* */

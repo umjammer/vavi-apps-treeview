@@ -13,6 +13,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import vavi.awt.SelectionTransferable;
@@ -36,9 +37,6 @@ import vavi.util.Debug;
 public class TreeViewTreeEditor {
 
     /** */
-    private Object thiz = TreeViewTreeEditor.this;
-
-    /** */
     TreeViewTree tree;
 
     /** */
@@ -57,11 +55,11 @@ public class TreeViewTreeEditor {
         Transferable transferable = new SelectionTransferable(selection);
         currentClipboard.setContents(transferable, clipboardOwner);
 
-        for (int i = 0; i < selection.size(); i++) {
-            selection.get(i).cut();
+        for (TreeViewTreeNode treeViewTreeNode : selection) {
+            treeViewTreeNode.cut();
         }
 
-        fireEditorUpdated(new EditorEvent(thiz, "cut", selection));
+        fireEditorUpdated(new EditorEvent(this, "cut", selection));
     }
 
     /** */
@@ -70,11 +68,11 @@ public class TreeViewTreeEditor {
         Transferable transferable = new SelectionTransferable(selection);
         currentClipboard.setContents(transferable, clipboardOwner);
 
-        for (int i = 0; i < selection.size(); i++) {
-            selection.get(i).copy();
+        for (TreeViewTreeNode treeViewTreeNode : selection) {
+            treeViewTreeNode.copy();
         }
 
-        fireEditorUpdated(new EditorEvent(thiz, "copy", selection));
+        fireEditorUpdated(new EditorEvent(this, "copy", selection));
     }
 
     /** */
@@ -90,20 +88,19 @@ public class TreeViewTreeEditor {
         Transferable transferable = currentClipboard.getContents(this);
         selection = (List<TreeViewTreeNode>) transferable.getTransferData(flavor);
 
-        for (int i = 0; i < selection.size(); i++) {
-            node.paste(selection.get(i));
+        for (TreeViewTreeNode treeViewTreeNode : selection) {
+            node.paste(treeViewTreeNode);
         }
     }
 
     /** */
     public void delete() throws TreeViewException {
-        for (int i = 0; i < selection.size(); i++) {
-            TreeViewTreeNode node = selection.get(i);
+        for (TreeViewTreeNode node : selection) {
             node.delete();
         }
 
         selection.clear();
-        fireEditorUpdated(new EditorEvent(thiz, "select", selection));
+        fireEditorUpdated(new EditorEvent(this, "select", selection));
     }
 
     // -------------------------------------------------------------------------
@@ -120,14 +117,14 @@ public class TreeViewTreeEditor {
     /** */
     private ClipboardOwner clipboardOwner = new ClipboardOwner() {
         /** Called when lost the ownership. */
-        public void lostOwnership(Clipboard clipboard, Transferable contents) {
+        @Override public void lostOwnership(Clipboard clipboard, Transferable contents) {
             if (clipboard == systemClipboard) {
-                Debug.println(clipboard.getName());
+Debug.println(clipboard.getName());
                 localClipboard.setContents(contents, this);
                 currentClipboard = localClipboard;
             } else {
-                Debug.println("???: " + clipboard.getName());
-                fireEditorUpdated(new EditorEvent(thiz, "lostOwnership"));
+Debug.println("???: " + clipboard.getName());
+                fireEditorUpdated(new EditorEvent(TreeViewTreeEditor.this, "lostOwnership"));
             }
         }
     };
@@ -135,12 +132,12 @@ public class TreeViewTreeEditor {
     // -------------------------------------------------------------------------
 
     /** */
-    private EditorListener el = new EditorListener() {
-        @SuppressWarnings("unchecked")
-        public void editorUpdated(EditorEvent ev) {
+    @SuppressWarnings("unchecked")
+    private final EditorListener el = new EditorListener() {
+        @Override public void editorUpdated(EditorEvent ev) {
             String name = ev.getName();
             if ("select".equals(name)) {
-                selection = (List<TreeViewTreeNode>) ev.getArgument();
+                selection = (List<TreeViewTreeNode>) ev.getArguments()[0];
             }
         }
     };
